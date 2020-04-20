@@ -15,7 +15,7 @@ def main(argv):
     parser = SpecLangParser(stream)
     #parser.removeErrorListeners()
     #parser.addErrorListener(SpecLangErrorListener())
-    tree = parser.statement()
+    tree = parser.block()
     print(Trees.toStringTree(tree, None, parser))
     visitor = SpecLangWalker()
     result = visitor.visit(tree)

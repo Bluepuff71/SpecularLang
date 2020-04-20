@@ -9,11 +9,11 @@ from SpecLangParser import SpecLangParser
 }
 @lexer::members {
 class SpecDenter(DenterHelper):
-    def __init__(self, lexer, nlToken, indentToken, dedentToken, ignoreEOF):
-        super().__init__(nlToken, indentToken, dedentToken, ignoreEOF)
+    def __init__(self, lexer, nl_token, indent_token, dedent_token, ignore_eof):
+        super().__init__(nl_token, indent_token, dedent_token, ignore_eof)
         self.lexer: SpecLangLexer = lexer
 
-    def pullToken(self):
+    def pull_token(self):
         return super(SpecLangLexer, self.lexer).nextToken()
 
 denter = None
@@ -21,20 +21,20 @@ denter = None
 def nextToken(self):
     if not self.denter:
         self.denter = self.SpecDenter(self, self.NEWLINE, SpecLangParser.INDENT, SpecLangParser.DEDENT, False)
-    return self.denter.nextToken()
+    return self.denter.next_token()
 
 }
 
 /*
 * Parser Rules
 */
+block : (simple_statement NEWLINE | complex_statement) (block)? ;
 
-block : INDENT (statement (NEWLINE)?)+? DEDENT;
+simple_statement : '@' term ':' term #dialog //Needs to be updated with emotion support
+                 | <assoc=right>  (GLOBAL)? ID '=' expression #assignment;
 
-statement : IF condition ';' block #ifStatement
-          | SCENE STRING ';' block #sceneStatement
-          | '@' term ':' term #dialog //Needs to be updated with emotion support
-          | <assoc=right>  (GLOBAL)? ID '=' expression #assignment;
+complex_statement : IF condition ';' INDENT block DEDENT #ifStatement
+                  | SCENE STRING ';' INDENT block DEDENT #sceneStatement;
 
 expression : '&' STRING (':' STRING)*? #choice
            | expression ('*' | '/') expression #mult
@@ -73,5 +73,5 @@ STRING : '"' ( '\\"' | . )*? '"' ;
 ID : [a-zA-Z_][a-zA-Z_0-9]* ;
 NUMBER : [0-9]+ ;
 
-NEWLINE : ('\r'? '\n' '\t'*); // note the ' '*
+NEWLINE : ('\r'? '\n' ('\t'* | ' '*)); // note the ' '*
 WS: [ ]+? -> skip;

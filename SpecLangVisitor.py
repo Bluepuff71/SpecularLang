@@ -14,16 +14,6 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#ifStatement.
-    def visitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#sceneStatement.
-    def visitSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by SpecLangParser#dialog.
     def visitDialog(self, ctx:SpecLangParser.DialogContext):
         return self.visitChildren(ctx)
@@ -31,6 +21,16 @@ class SpecLangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#assignment.
     def visitAssignment(self, ctx:SpecLangParser.AssignmentContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#ifStatement.
+    def visitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#sceneStatement.
+    def visitSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
         return self.visitChildren(ctx)
 
 

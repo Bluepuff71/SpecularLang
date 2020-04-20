@@ -17,24 +17,6 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#ifStatement.
-    def enterIfStatement(self, ctx:SpecLangParser.IfStatementContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#ifStatement.
-    def exitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#sceneStatement.
-    def enterSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#sceneStatement.
-    def exitSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
-        pass
-
-
     # Enter a parse tree produced by SpecLangParser#dialog.
     def enterDialog(self, ctx:SpecLangParser.DialogContext):
         pass
@@ -50,6 +32,24 @@ class SpecLangListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#assignment.
     def exitAssignment(self, ctx:SpecLangParser.AssignmentContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#ifStatement.
+    def enterIfStatement(self, ctx:SpecLangParser.IfStatementContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#ifStatement.
+    def exitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#sceneStatement.
+    def enterSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#sceneStatement.
+    def exitSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
         pass
 
 

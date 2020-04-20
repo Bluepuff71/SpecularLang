@@ -1,7 +1,9 @@
 c = 0
+e =  2
 if True;
 	x = 0
 	if False;
 		y = 0
+	h = 5
 c = 0
 e =  2
