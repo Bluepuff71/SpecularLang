@@ -46,10 +46,16 @@ class SpecLangWalkerTest(unittest.TestCase):
             .row([0, "Dialog", {'speaker': 'actor', 'emotion': 'Neutral', 'text': 'Hello World'}])\
             .check()
 
-    def test_simple_unary_assignent(self):
+    def test_simple_neg_assignent(self):
         RowBuilder\
             .of("x = -1")\
             .row([0, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Number', 'assignment': "-1"}])\
+            .check()
+
+    def test_simple_not_assignment(self):
+        RowBuilder \
+            .of("x = not False") \
+            .row([0, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Bool', 'assignment': "True"}]) \
             .check()
 
     if __name__ == '__main__':

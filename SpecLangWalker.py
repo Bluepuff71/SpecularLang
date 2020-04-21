@@ -123,8 +123,17 @@ class SpecLangWalker(SpecLangVisitor):
             self.add_row([self.rowNum, "Unary", {'operator': expr_op, 'x': term['value']}])
             return {'type': "Bool" if expr_op == 'not' else "Number", 'value': '$'}
         else:
-            return {'type': "Bool" if expr_op == 'not' else "Number", 'value': not term['value'] if expr_op == 'not' else str(-int(term['value']))}
-
+            print(term['value'])
+            print(bool(term['value']))
+            return {'type': "Bool" if expr_op == 'not' else "Number", 'value': str(not self.toBool(term['value'])) if expr_op == 'not' else str(-int(term['value']))}
 
     def visitParen(self, ctx:SpecLangParser.ParenContext):
         return self.visit(ctx.expression())
+
+    def toBool(self, string: str):
+        if string.lower() == 'true':
+            return True
+        elif string.lower() == 'false':
+            return False
+        else:
+            raise ValueError('ToBool is None!')
