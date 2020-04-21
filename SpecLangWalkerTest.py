@@ -1,11 +1,10 @@
 from unittest import TestCase
-TestCase.maxDiff = None
-
 from antlr4 import CommonTokenStream, InputStream
-
 from SpecLangLexer import SpecLangLexer
 from SpecLangParser import SpecLangParser
 from SpecLangWalker import SpecLangWalker
+
+TestCase.maxDiff = None
 
 class RowBuilder(TestCase):
     def __init__(self):
