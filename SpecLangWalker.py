@@ -67,7 +67,7 @@ class SpecLangWalker(SpecLangVisitor):
             self.add_row([self.rowNum, "Expression", {'operator': expr_op, 'x': term_0['value'], 'y': term_1['value']}])
             return {'type': "Number", 'value': '$'}
         else:  # Return * or / depending on the operator
-            return {'type': 'Number', 'value': term_0['value'] * term_1['value'] if expr_op == '*' else term_0['value'] / term_1['value']}
+            return {'type': 'Number', 'value': int(term_0['value']) * int(term_1['value']) if expr_op == '*' else int(term_0['value']) / int(term_1['value'])}
 
     def visitAdd(self, ctx:SpecLangParser.AddContext):
         term_0 = self.visit(ctx.expression(0))
@@ -81,7 +81,10 @@ class SpecLangWalker(SpecLangVisitor):
             self.add_row([self.rowNum, "Expression", {'operator': expr_op, 'x': term_0['value'], 'y': term_1['value']}])
             return {'type': typeStr, 'value': '$'}
         else:  # Return + or - depending on the operator
-            return {'type': typeStr, 'value': term_0['value'] + term_1['value'] if expr_op == '+' else term_0['value'] - term_1['value']}
+            if typeStr == "String":
+                return {'type': 'String', 'value': term_0['value'] + term_1['value']}
+            else:
+                return {'type': 'Number', 'value': str(int(term_0['value']) + int(term_1['value'])) if expr_op == '+' else str(int(term_0['value']) - int(term_1['value']))}
 
     def visitEqual(self, ctx:SpecLangParser.EqualContext):
         term_0 = self.visit(ctx.expression(0))

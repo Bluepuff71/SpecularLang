@@ -58,5 +58,12 @@ class SpecLangWalkerTest(unittest.TestCase):
             .row([0, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Bool', 'assignment': "True"}]) \
             .check()
 
+    def test_complex_num_only_assignment(self):
+        RowBuilder\
+            .of("x = -(1 + 3) - (4 + (6 * 30) * 3) - 27")\
+            .row([0, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Number', 'assignment': "-575"}]) \
+            .check()
+
+    
     if __name__ == '__main__':
         unittest.main()
