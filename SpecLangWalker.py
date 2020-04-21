@@ -125,12 +125,12 @@ class SpecLangWalker(SpecLangVisitor):
         else:
             print(term['value'])
             print(bool(term['value']))
-            return {'type': "Bool" if expr_op == 'not' else "Number", 'value': str(not self.toBool(term['value'])) if expr_op == 'not' else str(-int(term['value']))}
+            return {'type': "Bool" if expr_op == 'not' else "Number", 'value': str(not self.to_bool(term['value'])) if expr_op == 'not' else str(-int(term['value']))}
 
     def visitParen(self, ctx:SpecLangParser.ParenContext):
         return self.visit(ctx.expression())
 
-    def toBool(self, string: str):
+    def to_bool(self, string: str):
         if string.lower() == 'true':
             return True
         elif string.lower() == 'false':
