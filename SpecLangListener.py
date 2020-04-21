@@ -89,10 +89,6 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-<<<<<<< Updated upstream
-    # Enter a parse tree produced by SpecLangParser#expr_term.
-    def enterExpr_term(self, ctx:SpecLangParser.Expr_termContext):
-=======
     # Enter a parse tree produced by SpecLangParser#or.
     def enterOr(self, ctx:SpecLangParser.OrContext):
         pass
@@ -113,11 +109,10 @@ class SpecLangListener(ParseTreeListener):
 
     # Enter a parse tree produced by SpecLangParser#term.
     def enterTerm(self, ctx:SpecLangParser.TermContext):
->>>>>>> Stashed changes
         pass
 
-    # Exit a parse tree produced by SpecLangParser#expr_term.
-    def exitExpr_term(self, ctx:SpecLangParser.Expr_termContext):
+    # Exit a parse tree produced by SpecLangParser#term.
+    def exitTerm(self, ctx:SpecLangParser.TermContext):
         pass
 
 
@@ -136,15 +131,6 @@ class SpecLangListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#choice.
     def exitChoice(self, ctx:SpecLangParser.ChoiceContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#term.
-    def enterTerm(self, ctx:SpecLangParser.TermContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#term.
-    def exitTerm(self, ctx:SpecLangParser.TermContext):
         pass
 
 

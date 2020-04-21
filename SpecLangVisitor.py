@@ -54,10 +54,6 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-<<<<<<< Updated upstream
-    # Visit a parse tree produced by SpecLangParser#expr_term.
-    def visitExpr_term(self, ctx:SpecLangParser.Expr_termContext):
-=======
     # Visit a parse tree produced by SpecLangParser#or.
     def visitOr(self, ctx:SpecLangParser.OrContext):
         return self.visitChildren(ctx)
@@ -70,7 +66,6 @@ class SpecLangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#term.
     def visitTerm(self, ctx:SpecLangParser.TermContext):
->>>>>>> Stashed changes
         return self.visitChildren(ctx)
 
 
@@ -81,11 +76,6 @@ class SpecLangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#choice.
     def visitChoice(self, ctx:SpecLangParser.ChoiceContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#term.
-    def visitTerm(self, ctx:SpecLangParser.TermContext):
         return self.visitChildren(ctx)
 
 

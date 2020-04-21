@@ -25,24 +25,14 @@ class SpecLangWalker(SpecLangVisitor):
     }
 
 
-<<<<<<< Updated upstream
-=======
     def add_row(self, row: []):
         self.rows.append(row)
         self.rowNum += 1
 
->>>>>>> Stashed changes
     def visitChoice(self, ctx:SpecLangParser.ChoiceContext):
         print(ctx.STRING())
         #return [++self.rowNum, "Choice", {'choices'}]
 
-<<<<<<< Updated upstream
-    def visitDialog(self, ctx:SpecLangParser.DialogContext):
-        return [++self.rowNum, "Dialog", {'speaker': self.visit(ctx.term(0)), 'emotion': 'Neutral', 'text': self.visit(ctx.term(1))}]
-
-    def visitTerm(self, ctx:SpecLangParser.TermContext):
-        return ctx.getText()
-=======
     def visitDialog(self, ctx: SpecLangParser.DialogContext):
         self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.getChild(1)), 'emotion': 'Neutral', 'text': str(ctx.getChild(3)).strip('"')}])
 
@@ -138,4 +128,3 @@ class SpecLangWalker(SpecLangVisitor):
 
     def visitParen(self, ctx:SpecLangParser.ParenContext):
         return self.visit(ctx.expression())
->>>>>>> Stashed changes

@@ -19,13 +19,8 @@ def main(argv):
     print(Trees.toStringTree(tree, None, parser))
     visitor = SpecLangWalker()
     result = visitor.visit(tree)
-<<<<<<< Updated upstream
-    print(visitor.rows)
-
-=======
     for row in visitor.rows:
        print(row)
->>>>>>> Stashed changes
 
 if __name__ == '__main__':
     main(sys.argv)

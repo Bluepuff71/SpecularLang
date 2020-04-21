@@ -30,17 +30,12 @@ def nextToken(self):
 */
 block : (simple_statement NEWLINE | complex_statement) (block)? ;
 
-simple_statement : '@' term ':' term #dialog //Needs to be updated with emotion support
+simple_statement : '@' (ID | STRING) ':' STRING #dialog //Needs to be updated with emotion support
                  | <assoc=right>  (GLOBAL)? ID '=' expression #assignment;
 
 complex_statement : IF expression ';' INDENT block DEDENT #ifStatement
                   | SCENE STRING ';' INDENT block DEDENT #sceneStatement;
 
-<<<<<<< Updated upstream
-expression : '&' STRING (':' STRING)*? #choice
-           | expression ('*' | '/') expression #mult
-           | expression ('+' | '-') expression #add
-=======
 expression : (NOT | SUB) expression #unary
            | '&' STRING (':' STRING)*? #choice
            | expression (MUL | DIV) expression #mult
@@ -48,28 +43,9 @@ expression : (NOT | SUB) expression #unary
            | expression ('==' | '!=') expression #equal
            | expression AND expression #and
            | expression OR expression #or
->>>>>>> Stashed changes
            | '(' expression ')' #paren
-           | term #expr_term;
+           |  (NONE | TRUE | FALSE | ID | STRING | NUMBER) #term;
 
-<<<<<<< Updated upstream
-condition : NOT condition
-          | condition ('==' | '!=') condition
-          | condition AND condition
-          | condition OR condition
-          | '(' condition ')'
-          | expression;
-
-term : 'None'
-     | 'True'
-     | 'False'
-     | ID
-     | STRING
-     | NUMBER;
-
-
-=======
->>>>>>> Stashed changes
 /*
 * Lexer Rules
 */
@@ -80,8 +56,14 @@ GLOBAL : 'global';
 AND : 'and';
 OR : 'or';
 NOT : 'not';
-
+MUL : '*' ;
+DIV : '/' ;
+ADD : '+' ;
+SUB : '-' ;
 STRING : '"' ( '\\"' | . )*? '"' ;
+TRUE: 'True';
+FALSE: 'False';
+NONE: 'None';
 //EMOTION : '(' [a-zA-Z] ')';
 ID : [a-zA-Z_][a-zA-Z_0-9]* ;
 NUMBER : [0-9]+ ;
