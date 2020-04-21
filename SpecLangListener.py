@@ -62,6 +62,15 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SpecLangParser#equal.
+    def enterEqual(self, ctx:SpecLangParser.EqualContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#equal.
+    def exitEqual(self, ctx:SpecLangParser.EqualContext):
+        pass
+
+
     # Enter a parse tree produced by SpecLangParser#paren.
     def enterParen(self, ctx:SpecLangParser.ParenContext):
         pass
@@ -80,12 +89,44 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
+<<<<<<< Updated upstream
     # Enter a parse tree produced by SpecLangParser#expr_term.
     def enterExpr_term(self, ctx:SpecLangParser.Expr_termContext):
+=======
+    # Enter a parse tree produced by SpecLangParser#or.
+    def enterOr(self, ctx:SpecLangParser.OrContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#or.
+    def exitOr(self, ctx:SpecLangParser.OrContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#and.
+    def enterAnd(self, ctx:SpecLangParser.AndContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#and.
+    def exitAnd(self, ctx:SpecLangParser.AndContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#term.
+    def enterTerm(self, ctx:SpecLangParser.TermContext):
+>>>>>>> Stashed changes
         pass
 
     # Exit a parse tree produced by SpecLangParser#expr_term.
     def exitExpr_term(self, ctx:SpecLangParser.Expr_termContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#unary.
+    def enterUnary(self, ctx:SpecLangParser.UnaryContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#unary.
+    def exitUnary(self, ctx:SpecLangParser.UnaryContext):
         pass
 
 
@@ -95,15 +136,6 @@ class SpecLangListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#choice.
     def exitChoice(self, ctx:SpecLangParser.ChoiceContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#condition.
-    def enterCondition(self, ctx:SpecLangParser.ConditionContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#condition.
-    def exitCondition(self, ctx:SpecLangParser.ConditionContext):
         pass
 
 

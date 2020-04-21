@@ -33,15 +33,26 @@ block : (simple_statement NEWLINE | complex_statement) (block)? ;
 simple_statement : '@' term ':' term #dialog //Needs to be updated with emotion support
                  | <assoc=right>  (GLOBAL)? ID '=' expression #assignment;
 
-complex_statement : IF condition ';' INDENT block DEDENT #ifStatement
+complex_statement : IF expression ';' INDENT block DEDENT #ifStatement
                   | SCENE STRING ';' INDENT block DEDENT #sceneStatement;
 
+<<<<<<< Updated upstream
 expression : '&' STRING (':' STRING)*? #choice
            | expression ('*' | '/') expression #mult
            | expression ('+' | '-') expression #add
+=======
+expression : (NOT | SUB) expression #unary
+           | '&' STRING (':' STRING)*? #choice
+           | expression (MUL | DIV) expression #mult
+           | expression (ADD | SUB) expression #add
+           | expression ('==' | '!=') expression #equal
+           | expression AND expression #and
+           | expression OR expression #or
+>>>>>>> Stashed changes
            | '(' expression ')' #paren
            | term #expr_term;
 
+<<<<<<< Updated upstream
 condition : NOT condition
           | condition ('==' | '!=') condition
           | condition AND condition
@@ -57,6 +68,8 @@ term : 'None'
      | NUMBER;
 
 
+=======
+>>>>>>> Stashed changes
 /*
 * Lexer Rules
 */

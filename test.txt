@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 c = 0
 e =  2
 if True;
@@ -7,3 +8,6 @@ if True;
 	h = 5
 c = 0
 e =  2
+=======
+@ actor : "TEst"
+>>>>>>> Stashed changes

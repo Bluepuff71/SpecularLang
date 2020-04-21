@@ -39,6 +39,11 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SpecLangParser#equal.
+    def visitEqual(self, ctx:SpecLangParser.EqualContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SpecLangParser#paren.
     def visitParen(self, ctx:SpecLangParser.ParenContext):
         return self.visitChildren(ctx)
@@ -49,18 +54,33 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+<<<<<<< Updated upstream
     # Visit a parse tree produced by SpecLangParser#expr_term.
     def visitExpr_term(self, ctx:SpecLangParser.Expr_termContext):
+=======
+    # Visit a parse tree produced by SpecLangParser#or.
+    def visitOr(self, ctx:SpecLangParser.OrContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#and.
+    def visitAnd(self, ctx:SpecLangParser.AndContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#term.
+    def visitTerm(self, ctx:SpecLangParser.TermContext):
+>>>>>>> Stashed changes
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#unary.
+    def visitUnary(self, ctx:SpecLangParser.UnaryContext):
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by SpecLangParser#choice.
     def visitChoice(self, ctx:SpecLangParser.ChoiceContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#condition.
-    def visitCondition(self, ctx:SpecLangParser.ConditionContext):
         return self.visitChildren(ctx)
 
 
