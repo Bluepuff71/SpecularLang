@@ -131,6 +131,18 @@ class SpecLangWalker(SpecLangVisitor):
     def visitParen(self, ctx:SpecLangParser.ParenContext):
         return self.visit(ctx.expression())
 
+    def visitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
+        current_row = self.rowNum
+        term = self.visit(ctx.expression())
+        if term['value'] == 'True':
+            self.visit(ctx.block())
+        elif term['value'] == 'False':
+            return
+        else:
+            self.add_row([self.rowNum, "If", {'condition': term['value'], 'jump': 'endIf_{}'.format(current_row)}])
+            self.visit(ctx.block())
+            self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
+
     def to_bool(self, string: str):
         if string.lower() == 'true':
             return True
