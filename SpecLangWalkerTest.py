@@ -64,6 +64,30 @@ class SpecLangWalkerTest(unittest.TestCase):
             .row([0, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Number', 'assignment': "-575"}]) \
             .check()
 
-    
+    def test_double_neg_assignment(self):
+        RowBuilder\
+            .of("x = --4")\
+            .row([0, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Number', 'assignment': "4"}])\
+            .check()
+
+    def test_minus_negative_assignment(self):
+        RowBuilder \
+            .of("x = 4 - -4") \
+            .row([0, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Number', 'assignment': "8"}]) \
+            .check()
+
+    def test_simple_ID_assignment(self):
+        RowBuilder \
+            .of("x = y") \
+            .row([0, "Assign", {'global': 'no', 'ID': 'x', 'type': 'ID', 'assignment': "y"}]) \
+            .check()
+
+    def test_simple_ID_expression(self):
+        RowBuilder \
+            .of("x = u + w") \
+            .row([0, "Expression", {'operator': '+', 'x': 'u', 'y': 'w'}])\
+            .row([1, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Number', 'assignment': "$"}]) \
+            .check()
+
     if __name__ == '__main__':
         unittest.main()
