@@ -123,7 +123,7 @@ class SpecLangWalker(SpecLangVisitor):
             self.add_row([self.rowNum, "Unary", {'operator': expr_op, 'x': term['value']}])
             return {'type': "Bool" if expr_op == 'not' else "Number", 'value': '$'}
         else:
-            return {'type': "Bool" if expr_op == 'not' else "Number", 'value': not term['value'] if expr_op == 'not' else -term['value']}
+            return {'type': "Bool" if expr_op == 'not' else "Number", 'value': not term['value'] if expr_op == 'not' else str(-int(term['value']))}
 
 
     def visitParen(self, ctx:SpecLangParser.ParenContext):
