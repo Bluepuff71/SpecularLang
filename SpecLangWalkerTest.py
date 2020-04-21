@@ -1,4 +1,5 @@
-import unittest
+from unittest import TestCase
+TestCase.maxDiff = None
 
 from antlr4 import CommonTokenStream, InputStream
 
@@ -6,7 +7,7 @@ from SpecLangLexer import SpecLangLexer
 from SpecLangParser import SpecLangParser
 from SpecLangWalker import SpecLangWalker
 
-class RowBuilder(unittest.TestCase):
+class RowBuilder(TestCase):
     def __init__(self):
         super().__init__()
         self.expected = []
@@ -18,8 +19,13 @@ class RowBuilder(unittest.TestCase):
         rb.text = text
         return rb
 
+    def nl(self, text: str):
+        self.text += '\n{}'.format(text)
+        return self
+
     def row(self, expected: []):
-        self.expected.append(expected)
+        if expected:
+            self.expected.append(expected)
         return self
 
     def check(self):
@@ -32,12 +38,18 @@ class RowBuilder(unittest.TestCase):
         self.assertListEqual(self.expected, visitor.rows)
 
 
-class SpecLangWalkerTest(unittest.TestCase):
+class SpecLangWalkerTest(TestCase):
 
     def test_simple_assignment(self):
         RowBuilder\
             .of("x = 0")\
             .row([0, "Assign", {'global': 'no', 'ID': "x", 'type': "Number", 'assignment': "0"}])\
+            .check()
+
+    def test_simple_global_assignment(self):
+        RowBuilder \
+            .of("global x = 0") \
+            .row([0, "Assign", {'global': 'yes', 'ID': "x", 'type': "Number", 'assignment': "0"}]) \
             .check()
 
     def test_simple_dialog(self):
@@ -89,5 +101,44 @@ class SpecLangWalkerTest(unittest.TestCase):
             .row([1, "Assign", {'global': 'no', 'ID': 'x', 'type': 'Number', 'assignment': "$"}]) \
             .check()
 
-    if __name__ == '__main__':
-        unittest.main()
+    def test_simple_if_statement(self):
+        RowBuilder \
+            .of("if u != 0;") \
+            .nl("\tu = 0")\
+            .row([0, "Expression", {'operator': '!=', 'x': 'u', 'y': '0'}])\
+            .row([1, "If", {'condition': '$', 'jump': 'endIf_0'}]) \
+            .row([2, "Assign", {'global': 'no', 'ID': 'u', 'type': 'Number', 'assignment': "0"}]) \
+            .row([3, "Label", {'name': 'endIf_0'}])\
+            .check()
+
+    def test_true_if_reduction(self):
+        RowBuilder \
+            .of("if True;") \
+            .nl("\tu = 0") \
+            .row([0, "Assign", {'global': 'no', 'ID': 'u', 'type': 'Number', 'assignment': "0"}]) \
+            .check()
+
+    def test_false_if_reduction(self):
+        RowBuilder \
+            .of("if False;") \
+            .nl("\tu = 0") \
+            .row(None) \
+            .check()
+
+    def test_inner_and_outer_block(self):
+        RowBuilder \
+            .of("if u != 0;") \
+            .nl("\tu = 0") \
+            .nl("\tif j == 5;")\
+            .nl("\t\tj = 6")\
+            .nl("u = 8")\
+            .row([0, "Expression", {'operator': '!=', 'x': 'u', 'y': '0'}]) \
+            .row([1, "If", {'condition': '$', 'jump': 'endIf_0'}]) \
+            .row([2, "Assign", {'global': 'no', 'ID': 'u', 'type': 'Number', 'assignment': "0"}])\
+            .row([3, "Expression", {'operator': '==', 'x': 'j', 'y': '5'}]) \
+            .row([4, "If", {'condition': '$', 'jump': 'endIf_3'}])\
+            .row([5, "Assign", {'global': 'no', 'ID': 'j', 'type': 'Number', 'assignment': "6"}])\
+            .row([6, "Label", {'name': 'endIf_3'}]) \
+            .row([7, "Label", {'name': 'endIf_0'}]) \
+            .row([8, "Assign", {'global': 'no', 'ID': 'u', 'type': 'Number', 'assignment': "8"}])\
+            .check()
