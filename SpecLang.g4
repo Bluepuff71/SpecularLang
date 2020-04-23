@@ -4,7 +4,7 @@ grammar SpecLang;
 tokens { INDENT, DEDENT }
 
 @lexer::header{
-from DenterHelper import DenterHelper
+from antlr_denter.DenterHelper import DenterHelper
 from SpecLangParser import SpecLangParser
 }
 @lexer::members {
@@ -28,28 +28,44 @@ def nextToken(self):
 /*
 * Parser Rules
 */
+program : (assignment NEWLINE)* (scene_statement)+;
+
 block : (simple_statement NEWLINE | complex_statement) (block)? ;
 
-simple_statement : '@' (ID | STRING) ':' STRING #dialog //Needs to be updated with emotion support
-                 | <assoc=right>  (GLOBAL)? ID '=' expression #assignment;
+simple_statement : dialog
+                 | assignment;
 
-complex_statement : IF expression ';' INDENT block DEDENT #ifStatement
-                  | SCENE STRING ';' INDENT block DEDENT #sceneStatement;
+assignment: <assoc=right>  (GLOBAL)? ID '=' expression;
+
+dialog: '@' (ID | STRING) ':' STRING; //Needs to be updated with emotion support
+
+complex_statement : IF expression ';' INDENT block DEDENT (else_if_statement)*? else_statement? #ifStatement
+                  | WHILE expression ';' INDENT block DEDENT #whileLoop
+                  | DO ';' INDENT block DEDENT WHILE expression #doWhileLoop;
+
+else_if_statement : ELSE IF expression ';' block DEDENT;
+
+else_statement : ELSE ';' INDENT block DEDENT;
+
+
+scene_statement : SCENE STRING ';' INDENT block DEDENT ;
 
 expression : (NOT | SUB) expression #unary
-           | '&' STRING (':' STRING)*? #choice
            | expression (MUL | DIV) expression #mult
            | expression (ADD | SUB) expression #add
            | expression ('==' | '!=') expression #equal
            | expression AND expression #and
            | expression OR expression #or
            | '(' expression ')' #paren
-           |  (NONE | TRUE | FALSE | ID | STRING | NUMBER) #term;
+           | '[' STRING (',' STRING)*? ']' #choice
+           | (NONE | TRUE | FALSE | ID | STRING | NUMBER) #term;
 
 /*
 * Lexer Rules
 */
-
+WHILE : 'while';
+ELSE: 'else';
+DO : 'do';
 IF : 'if';
 SCENE : 'scene';
 GLOBAL : 'global';
