@@ -59,7 +59,7 @@ class SpecLangWalker(SpecLangVisitor):
             choices["choice{}".format(i)] = str(ctx.STRING(i)).strip('"')
             i += 1
         self.add_row([self.rowNum, "Choice", choices])
-        return {'type': "ID", 'value': '$'}
+        return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
 
     def visitDialog(self, ctx: SpecLangParser.DialogContext):
         self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.getChild(1)), 'emotion': 'Neutral', 'text': str(ctx.getChild(3)).strip('"')}])
@@ -83,7 +83,7 @@ class SpecLangWalker(SpecLangVisitor):
         else:
             is_global = 'No'
         expr = self.visit(ctx.expression())
-        self.add_row([self.rowNum, "Assign", {'global': is_global, 'ID': str(ctx.ID()), 'type': expr['type'], 'assignment': expr['value']}]) #add type
+        self.add_row([self.rowNum, "Assign", {'global': is_global, 'ID': str(ctx.ID()), 'type': expr['type'], 'assignment': expr['value']}])
 
     def visitMult(self, ctx:SpecLangParser.MultContext):
         term_0 = self.visit(ctx.expression(0))
@@ -93,7 +93,7 @@ class SpecLangWalker(SpecLangVisitor):
         assert term_0['type'] in self.operators[expr_op] and term_1['type'] in self.operators[expr_op], "{} {} {} is not a valid operation".format(term_0['type'], expr_op, term_1['type'])
         if term_0['type'] == 'ID' or term_1['type'] == 'ID':
             self.add_row([self.rowNum, "Expression", {'operator': expr_op, 'x': term_0['value'], 'y': term_1['value']}])
-            return {'type': "ID", 'value': '$'}
+            return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
         else:  # Return * or / depending on the operator
             return {'type': 'Number', 'value': int(term_0['value']) * int(term_1['value']) if expr_op == '*' else int(term_0['value']) / int(term_1['value'])}
 
@@ -106,7 +106,7 @@ class SpecLangWalker(SpecLangVisitor):
         typeStr = "String" if term_0['type'] == 'String' or term_1['type'] == 'String' else "Number"
         if term_0['type'] == 'ID' or term_1['type'] == 'ID':
             self.add_row([self.rowNum, "Expression", {'operator': expr_op, 'x': term_0['value'], 'y': term_1['value']}])
-            return {'type': 'ID', 'value': '$'}
+            return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
         else:  # Return + or - depending on the operator
             if typeStr == "String":
                 return {'type': 'String', 'value': term_0['value'] + term_1['value']}
@@ -121,7 +121,7 @@ class SpecLangWalker(SpecLangVisitor):
         assert term_0['type'] in self.operators[expr_op] and term_1['type'] in self.operators[expr_op], "{} {} {} is not a valid operation".format(term_0['type'], expr_op, term_1['type'])
         if term_0['type'] == 'ID' or term_1['type'] == 'ID':
             self.add_row([self.rowNum, "Expression", {'operator': expr_op, 'x': term_0['value'], 'y': term_1['value']}])
-            return {'type': "ID", 'value': '$'}
+            return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
         else:
             return {'type': 'Bool', 'value': term_0['value'] == term_1['value'] if expr_op == '==' else term_0['value'] != term_1['value']}
 
@@ -131,7 +131,7 @@ class SpecLangWalker(SpecLangVisitor):
         assert term_0['type'] in self.operators['and'] and term_1['type'] in self.operators['and'], "{} {} {} is not a valid operation".format(term_0['type'], 'and', term_1['type'])
         if term_0['type'] == 'ID' or term_1['type'] == 'ID':
             self.add_row([self.rowNum, "Expression", {'operator': 'and', 'x': term_0['value'], 'y': term_1['value']}])
-            return {'type': "ID", 'value': '$'}
+            return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
         else:
             return {'type': 'Bool', 'value': term_0['value'] and term_1['value']}
 
@@ -141,7 +141,7 @@ class SpecLangWalker(SpecLangVisitor):
         assert term_0['type'] in self.operators['or'] and term_1['type'] in self.operators['and'], "{} {} {} is not a valid operation".format(term_0['type'], 'or', term_1['type'])
         if term_0['type'] == 'ID' or term_1['type'] == 'ID':
             self.add_row([self.rowNum, "Expression", {'operator': 'or', 'x': term_0['value'], 'y': term_1['value']}])
-            return {'type': "ID", 'value': '$'}
+            return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
         else:
             return {'type': 'Bool', 'value': term_0['value'] or term_1['value']}
 
@@ -151,7 +151,7 @@ class SpecLangWalker(SpecLangVisitor):
         assert term['type'] in self.operators[expr_op], "{} cannot be used with type: {}".format(expr_op, term['type'])
         if term['type'] == 'ID':
             self.add_row([self.rowNum, "Unary", {'operator': expr_op, 'x': term['value']}])
-            return {'type': 'ID', 'value': '$'}
+            return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
         else:
             return {'type': "Bool" if expr_op == 'not' else "Number", 'value': str(not self.to_bool(term['value'])) if expr_op == 'not' else str(-int(term['value']))}
 
@@ -160,6 +160,7 @@ class SpecLangWalker(SpecLangVisitor):
 
     def visitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
         self.visit(ctx.block())
+        self.add_row([self.rowNum, "StopScene", {}])
         self.write_rows(self.rows, str(ctx.STRING()).strip('"'))
         self.rows = []
         self.rowNum = 0

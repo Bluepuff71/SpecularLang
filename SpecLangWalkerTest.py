@@ -45,6 +45,7 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tx = 0")\
             .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "Number", 'assignment': "0"}])\
+            .row([1, "StopScene", {}])\
             .check()
 
     def test_simple_str_add(self):
@@ -52,6 +53,7 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tx = \"Test\" + 1") \
             .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': "Test1"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_simple_global_assignment(self):
@@ -59,20 +61,23 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tglobal x = 0") \
             .row([0, "Assign", {'global': 'Yes', 'ID': "x", 'type': "Number", 'assignment': "0"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_simple_dialog(self):
         RowBuilder \
             .of("scene \"TestScene\";") \
             .nl("\t@ actor : \"Hello World\"")\
-            .row([0, "Dialog", {'speaker': 'actor', 'emotion': 'Neutral', 'text': 'Hello World'}])\
+            .row([0, "Dialog", {'speaker': 'actor', 'emotion': 'Neutral', 'text': 'Hello World'}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_simple_neg_assignent(self):
         RowBuilder \
             .of("scene \"TestScene\";") \
             .nl("\tx = -1")\
-            .row([0, "Assign", {'global': 'No', 'ID': 'x', 'type': 'Number', 'assignment': "-1"}])\
+            .row([0, "Assign", {'global': 'No', 'ID': 'x', 'type': 'Number', 'assignment': "-1"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_simple_not_assignment(self):
@@ -80,6 +85,7 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tx = not False") \
             .row([0, "Assign", {'global': 'No', 'ID': 'x', 'type': 'Bool', 'assignment': "True"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_complex_num_only_assignment(self):
@@ -87,13 +93,15 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tx = -(1 + 3) - (4 + (6 * 30) * 3) - 27")\
             .row([0, "Assign", {'global': 'No', 'ID': 'x', 'type': 'Number', 'assignment': "-575"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_double_neg_assignment(self):
         RowBuilder \
             .of("scene \"TestScene\";") \
             .nl("\tx = --4")\
-            .row([0, "Assign", {'global': 'No', 'ID': 'x', 'type': 'Number', 'assignment': "4"}])\
+            .row([0, "Assign", {'global': 'No', 'ID': 'x', 'type': 'Number', 'assignment': "4"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_minus_negative_assignment(self):
@@ -101,6 +109,7 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tx = 4 - -4") \
             .row([0, "Assign", {'global': 'No', 'ID': 'x', 'type': 'Number', 'assignment': "8"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_simple_ID_assignment(self):
@@ -108,6 +117,7 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tx = y") \
             .row([0, "Assign", {'global': 'No', 'ID': 'x', 'type': 'ID', 'assignment': "y"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_simple_ID_expression(self):
@@ -116,6 +126,7 @@ class SpecLangWalkerTest(TestCase):
             .nl("\tx = u + w") \
             .row([0, "Expression", {'operator': '+', 'x': 'u', 'y': 'w'}])\
             .row([1, "Assign", {'global': 'No', 'ID': 'x', 'type': 'ID', 'assignment': "$"}]) \
+            .row([2, "StopScene", {}]) \
             .check()
 
     def test_simple_if_statement(self):
@@ -126,7 +137,8 @@ class SpecLangWalkerTest(TestCase):
             .row([0, "Expression", {'operator': '!=', 'x': 'u', 'y': '0'}])\
             .row([1, "If", {'condition': '$', 'jump': 'endIf_0'}]) \
             .row([2, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "0"}]) \
-            .row([3, "Label", {'name': 'endIf_0'}])\
+            .row([3, "Label", {'name': 'endIf_0'}]) \
+            .row([4, "StopScene", {}]) \
             .check()
 
     def test_true_if_reduction(self):
@@ -135,6 +147,7 @@ class SpecLangWalkerTest(TestCase):
             .nl("\tif True;") \
             .nl("\t\tu = 0") \
             .row([0, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "0"}]) \
+            .row([1, "StopScene", {}]) \
             .check()
 
     def test_false_if_reduction(self):
@@ -142,7 +155,7 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tif False;") \
             .nl("\t\tu = 0") \
-            .row(None) \
+            .row([0, "StopScene", {}]) \
             .check()
 
     def test_inner_and_outer_block(self):
@@ -161,7 +174,8 @@ class SpecLangWalkerTest(TestCase):
             .row([5, "Assign", {'global': 'No', 'ID': 'j', 'type': 'Number', 'assignment': "6"}])\
             .row([6, "Label", {'name': 'endIf_3'}]) \
             .row([7, "Label", {'name': 'endIf_0'}]) \
-            .row([8, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "8"}])\
+            .row([8, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "8"}]) \
+            .row([9, "StopScene", {}]) \
             .check()
 
     def test_assignment_before_scene(self):
@@ -170,7 +184,8 @@ class SpecLangWalkerTest(TestCase):
             .nl("scene \"TestScene\";") \
             .nl("\tu = 1") \
             .row([0, "Assign", {'global': 'No', 'ID': 'i', 'type': 'Number', 'assignment': "0"}]) \
-            .row([1, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "1"}])\
+            .row([1, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "1"}]) \
+            .row([2, "StopScene", {}]) \
             .check()
 
     def test_simple_single_choice_assignment(self):
@@ -179,6 +194,7 @@ class SpecLangWalkerTest(TestCase):
             .nl("\tchoice = [\"Choice1\"]") \
             .row([0, "Choice", {'choice0': "Choice1"}]) \
             .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$"}]) \
+            .row([2, "StopScene", {}]) \
             .check()
 
     def test_simple_multi_choice_assignment(self):
@@ -187,6 +203,7 @@ class SpecLangWalkerTest(TestCase):
             .nl('\tchoice = ["Choice1", "Choice2"]') \
             .row([0, "Choice", {'choice0': "Choice1", 'choice1': "Choice2"}]) \
             .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$"}]) \
+            .row([2, "StopScene", {}]) \
             .check()
 
     def test_simple_string_with_escape_quotes(self):
@@ -194,4 +211,13 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl('\t' + r'x = "\"Test\""') \
             .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': '"Test"'}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_expression_with_string(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\tx = "Test"') \
+            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': '""Test""'}]) \
+            .row([1, "StopScene", {}]) \
             .check()
