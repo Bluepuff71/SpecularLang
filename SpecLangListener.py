@@ -8,6 +8,15 @@ else:
 # This class defines a complete listener for a parse tree produced by SpecLangParser.
 class SpecLangListener(ParseTreeListener):
 
+    # Enter a parse tree produced by SpecLangParser#program.
+    def enterProgram(self, ctx:SpecLangParser.ProgramContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#program.
+    def exitProgram(self, ctx:SpecLangParser.ProgramContext):
+        pass
+
+
     # Enter a parse tree produced by SpecLangParser#block.
     def enterBlock(self, ctx:SpecLangParser.BlockContext):
         pass
@@ -17,12 +26,12 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#dialog.
-    def enterDialog(self, ctx:SpecLangParser.DialogContext):
+    # Enter a parse tree produced by SpecLangParser#simple_statement.
+    def enterSimple_statement(self, ctx:SpecLangParser.Simple_statementContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#dialog.
-    def exitDialog(self, ctx:SpecLangParser.DialogContext):
+    # Exit a parse tree produced by SpecLangParser#simple_statement.
+    def exitSimple_statement(self, ctx:SpecLangParser.Simple_statementContext):
         pass
 
 
@@ -35,6 +44,15 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SpecLangParser#dialog.
+    def enterDialog(self, ctx:SpecLangParser.DialogContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#dialog.
+    def exitDialog(self, ctx:SpecLangParser.DialogContext):
+        pass
+
+
     # Enter a parse tree produced by SpecLangParser#ifStatement.
     def enterIfStatement(self, ctx:SpecLangParser.IfStatementContext):
         pass
@@ -44,12 +62,48 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#sceneStatement.
-    def enterSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
+    # Enter a parse tree produced by SpecLangParser#whileLoop.
+    def enterWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#sceneStatement.
-    def exitSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
+    # Exit a parse tree produced by SpecLangParser#whileLoop.
+    def exitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#doWhileLoop.
+    def enterDoWhileLoop(self, ctx:SpecLangParser.DoWhileLoopContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#doWhileLoop.
+    def exitDoWhileLoop(self, ctx:SpecLangParser.DoWhileLoopContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#else_if_statement.
+    def enterElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#else_if_statement.
+    def exitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#else_statement.
+    def enterElse_statement(self, ctx:SpecLangParser.Else_statementContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#else_statement.
+    def exitElse_statement(self, ctx:SpecLangParser.Else_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#scene_statement.
+    def enterScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#scene_statement.
+    def exitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
         pass
 
 

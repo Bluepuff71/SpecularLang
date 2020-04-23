@@ -9,13 +9,18 @@ else:
 
 class SpecLangVisitor(ParseTreeVisitor):
 
+    # Visit a parse tree produced by SpecLangParser#program.
+    def visitProgram(self, ctx:SpecLangParser.ProgramContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SpecLangParser#block.
     def visitBlock(self, ctx:SpecLangParser.BlockContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#dialog.
-    def visitDialog(self, ctx:SpecLangParser.DialogContext):
+    # Visit a parse tree produced by SpecLangParser#simple_statement.
+    def visitSimple_statement(self, ctx:SpecLangParser.Simple_statementContext):
         return self.visitChildren(ctx)
 
 
@@ -24,13 +29,38 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SpecLangParser#dialog.
+    def visitDialog(self, ctx:SpecLangParser.DialogContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SpecLangParser#ifStatement.
     def visitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#sceneStatement.
-    def visitSceneStatement(self, ctx:SpecLangParser.SceneStatementContext):
+    # Visit a parse tree produced by SpecLangParser#whileLoop.
+    def visitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#doWhileLoop.
+    def visitDoWhileLoop(self, ctx:SpecLangParser.DoWhileLoopContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#else_if_statement.
+    def visitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#else_statement.
+    def visitElse_statement(self, ctx:SpecLangParser.Else_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#scene_statement.
+    def visitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
         return self.visitChildren(ctx)
 
 

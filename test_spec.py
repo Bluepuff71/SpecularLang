@@ -1,3 +1,4 @@
+import csv
 import sys
 
 from antlr4 import *
@@ -13,14 +14,10 @@ def main(argv):
     lexer = SpecLangLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = SpecLangParser(stream)
-    #parser.removeErrorListeners()
-    #parser.addErrorListener(SpecLangErrorListener())
-    tree = parser.block()
-    print(Trees.toStringTree(tree, None, parser))
+    tree = parser.program()
     visitor = SpecLangWalker()
-    result = visitor.visit(tree)
-    for row in visitor.rows:
-       print(row)
+    visitor.visit(tree)
+
 
 if __name__ == '__main__':
     main(sys.argv)
