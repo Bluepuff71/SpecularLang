@@ -253,3 +253,25 @@ class SpecLangWalkerTest(TestCase):
             .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': r'\"\\Test\"'}]) \
             .row([1, "StopScene", {}]) \
             .check()
+
+    def test_simple_while(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl("\twhile u != 0;") \
+            .nl("\t\tu = 0") \
+            .row([0, "Label", {'name': 'beginWhile_0'}])\
+            .row([1, "Expression", {'operator': '!=', 'x': 'u', 'y': '0'}]) \
+            .row([2, "While", {'condition': '$1', 'jump': 'endWhile_0'}]) \
+            .row([3, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "0"}]) \
+            .row([4, "JumpToLabel", {'name': 'beginWhile_0'}]) \
+            .row([5, "Label", {'name': 'endWhile_0'}]) \
+            .row([6, "StopScene", {}]) \
+            .check()
+
+    def test_simple_while_false_reduction(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl("\twhile False;") \
+            .nl("\t\tu = 0") \
+            .row([0, "StopScene", {}]) \
+            .check()

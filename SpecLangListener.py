@@ -53,30 +53,21 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#ifStatement.
-    def enterIfStatement(self, ctx:SpecLangParser.IfStatementContext):
+    # Enter a parse tree produced by SpecLangParser#complex_statement.
+    def enterComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#ifStatement.
-    def exitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#whileLoop.
-    def enterWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#whileLoop.
-    def exitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
+    # Exit a parse tree produced by SpecLangParser#complex_statement.
+    def exitComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#doWhileLoop.
-    def enterDoWhileLoop(self, ctx:SpecLangParser.DoWhileLoopContext):
+    # Enter a parse tree produced by SpecLangParser#ifstatement.
+    def enterIfstatement(self, ctx:SpecLangParser.IfstatementContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#doWhileLoop.
-    def exitDoWhileLoop(self, ctx:SpecLangParser.DoWhileLoopContext):
+    # Exit a parse tree produced by SpecLangParser#ifstatement.
+    def exitIfstatement(self, ctx:SpecLangParser.IfstatementContext):
         pass
 
 
@@ -95,6 +86,15 @@ class SpecLangListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#else_statement.
     def exitElse_statement(self, ctx:SpecLangParser.Else_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#whileLoop.
+    def enterWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#whileLoop.
+    def exitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
         pass
 
 

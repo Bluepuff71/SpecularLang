@@ -34,18 +34,13 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#ifStatement.
-    def visitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
+    # Visit a parse tree produced by SpecLangParser#complex_statement.
+    def visitComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#whileLoop.
-    def visitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#doWhileLoop.
-    def visitDoWhileLoop(self, ctx:SpecLangParser.DoWhileLoopContext):
+    # Visit a parse tree produced by SpecLangParser#ifstatement.
+    def visitIfstatement(self, ctx:SpecLangParser.IfstatementContext):
         return self.visitChildren(ctx)
 
 
@@ -56,6 +51,11 @@ class SpecLangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#else_statement.
     def visitElse_statement(self, ctx:SpecLangParser.Else_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#whileLoop.
+    def visitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
         return self.visitChildren(ctx)
 
 

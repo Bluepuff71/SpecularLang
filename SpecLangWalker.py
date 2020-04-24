@@ -27,41 +27,6 @@ class SpecLangWalker(SpecLangVisitor):
         'not': ['ID', 'Bool'],
     }
 
-    def write_rows(self, rows: [], fileName: str):
-        assert len(fileName) > 0 and not (" " in fileName), "File name is invalid"
-        fileName += '.csv'
-        csv_file = open(fileName, 'w', newline='')
-        csv_writer = csv.writer(csv_file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True)
-        csv_writer.writerow(["---", "actionType", "params"])
-        csv_writer.writerows(rows)
-        csv_file.close()
-
-    @staticmethod
-    def to_unreal_row_structure(di: {}):
-        #(actor=None,characterName={},dialogueColor=(B=0,G=0,R=0,A=255))
-        new_dict = "("
-        for x, y in di.items():
-            new_dict += '("{}","{}"),'.format(x, y)
-        new_dict = new_dict.rstrip(",")
-        new_dict += ")"
-        return new_dict
-
-    def convert_to_specular_string_format(self, str_to_convert: str):
-        # If the string we are converting doesn't have quotes then we can just return it
-        if str_to_convert[0] == '"' and str_to_convert[-1] == '"':
-            return r'\"{}\"'.format(str_to_convert[1:-1])
-        else:
-            return r'\"{}\"'.format(str_to_convert)
-
-    def append_to_formatted_string(self, formatted_str: str, append):
-        return self.convert_to_specular_string_format(formatted_str[2:-2] + append)
-
-
-    def add_row(self, row: []):
-        self.rows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
-        self.allRows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
-        self.rowNum += 1
-
     def visitChoice(self, ctx:SpecLangParser.ChoiceContext):
         #'[' STRING (',' STRING)*? ']' #choice stores a Number in $
         choices = {}
@@ -182,7 +147,7 @@ class SpecLangWalker(SpecLangVisitor):
         self.rowNum = 0
 
 
-    def visitIfStatement(self, ctx:SpecLangParser.IfStatementContext):
+    def visitIfstatement(self, ctx:SpecLangParser.IfstatementContext):
         current_row = self.rowNum
         term = self.visit(ctx.expression())
         if term['value'] == 'True':
@@ -194,19 +159,49 @@ class SpecLangWalker(SpecLangVisitor):
             self.visit(ctx.block())
             self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
 
-#TODO
-   #def visitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
-    #    current_row = self.rowNum
-     #   term = self.visit(ctx.expression())
-      #  if term['value'] == 'True':
-       #     self.visit(ctx.block())
-        #elif term['value'] == 'False':
-         #   return
-        #else:
-         #   self.add_row([self.rowNum, "If", {'condition': term['value'], 'jump': 'endIf_{}'.format(current_row)}])
-          #  self.visit(ctx.block())
-           # self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
 
+#    def visitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
+#        current_row = self.rowNum
+#        term = self.visit(ctx.expression())
+#        if term['value'] == 'True':
+#            self.visit(ctx.block())
+#        elif term['value'] == 'False':
+#            return
+#        else:
+#            self.add_row([self.rowNum, "If", {'condition': term['value'], 'jump': 'endIf_{}'.format(current_row)}])
+#            self.visit(ctx.block())
+#            self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
+
+    def visitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
+        current_row = self.rowNum
+        self.add_row([self.rowNum, "Label", {'name': 'beginWhile_{}'.format(current_row)}])
+        term = self.visit(ctx.expression())
+        if term['value'] == 'True':
+            raise Exception("While loop around line: {} will run forever (which is not allowed)".format(current_row))
+        elif term['value'] == 'False':
+            self.remove_last_row()
+            return
+        else:
+            self.add_row([self.rowNum, "While", {'condition': term['value'], 'jump': 'endWhile_{}'.format(current_row)}])
+            self.visit(ctx.block())
+            self.add_row([self.rowNum, "JumpToLabel", {'name': 'beginWhile_{}'.format(current_row)}])
+            self.add_row([self.rowNum, "Label", {'name': 'endWhile_{}'.format(current_row)}])
+
+
+# Canned for now
+#    def visitDoWhileLoop(self, ctx:SpecLangParser.DoWhileLoopContext):
+#        current_row = self.rowNum
+#        term = self.visit(ctx.expression())
+#        if term['value'] == 'True':
+#            raise Exception("Do-While loop around line: {} will run forever (which is not allowed)".format(current_row))
+#        elif term['value'] == 'False':
+#            return
+#        else:
+#            self.add_row([self.rowNum, "Label", {'name': 'beginDoWhile_{}'.format(current_row)}])
+#            self.visit(ctx.block())
+#            self.add_row([self.rowNum, "While", {'condition': term['value'], 'jump': 'doWhile_{}'.format(current_row)}])
+
+# region: Utils
     def to_bool(self, string: str):
         if string.lower() == 'true':
             return True
@@ -214,3 +209,44 @@ class SpecLangWalker(SpecLangVisitor):
             return False
         else:
             raise ValueError('ToBool is None!')
+
+    def write_rows(self, rows: [], fileName: str):
+        assert len(fileName) > 0 and not (" " in fileName), "File name is invalid"
+        fileName += '.csv'
+        csv_file = open(fileName, 'w', newline='')
+        csv_writer = csv.writer(csv_file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True)
+        csv_writer.writerow(["---", "actionType", "params"])
+        csv_writer.writerows(rows)
+        csv_file.close()
+
+    @staticmethod
+    def to_unreal_row_structure(di: {}):
+        #(actor=None,characterName={},dialogueColor=(B=0,G=0,R=0,A=255))
+        new_dict = "("
+        for x, y in di.items():
+            new_dict += '("{}","{}"),'.format(x, y)
+        new_dict = new_dict.rstrip(",")
+        new_dict += ")"
+        return new_dict
+
+    def convert_to_specular_string_format(self, str_to_convert: str):
+        # If the string we are converting doesn't have quotes then we can just return it
+        if str_to_convert[0] == '"' and str_to_convert[-1] == '"':
+            return r'\"{}\"'.format(str_to_convert[1:-1])
+        else:
+            return r'\"{}\"'.format(str_to_convert)
+
+    def append_to_formatted_string(self, formatted_str: str, append):
+        return self.convert_to_specular_string_format(formatted_str[2:-2] + append)
+
+
+    def add_row(self, row: []):
+        self.rows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
+        self.allRows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
+        self.rowNum += 1
+
+    def remove_last_row(self):
+        self.rows.pop(-1)
+        self.allRows.pop(-1)
+        self.rowNum -= 1
+
