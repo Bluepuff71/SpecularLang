@@ -51,8 +51,24 @@ class SpecLangWalkerTest(TestCase):
     def test_simple_str_add(self):
         RowBuilder \
             .of("scene \"TestScene\";") \
-            .nl("\tx = \"Test\" + 1") \
-            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': "Test1"}]) \
+            .nl('\tx = "Test" + 1') \
+            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': '\\"Test1\\"'}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_simple_str_add_with_escape_quote(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\tx = "Te\\"st" + 1') \
+            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': '\\"Te\\"st1\\"'}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_simple_str_add_with_surround_escape_quote(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\tx = "\\"Test\\"" + 1') \
+            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': '\\"\\"Test\\"1\\"'}]) \
             .row([1, "StopScene", {}]) \
             .check()
 
@@ -125,7 +141,7 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tx = u + w") \
             .row([0, "Expression", {'operator': '+', 'x': 'u', 'y': 'w'}])\
-            .row([1, "Assign", {'global': 'No', 'ID': 'x', 'type': 'ID', 'assignment': "$"}]) \
+            .row([1, "Assign", {'global': 'No', 'ID': 'x', 'type': 'ID', 'assignment': "$0"}]) \
             .row([2, "StopScene", {}]) \
             .check()
 
@@ -135,7 +151,7 @@ class SpecLangWalkerTest(TestCase):
             .nl("\tif u != 0;") \
             .nl("\t\tu = 0")\
             .row([0, "Expression", {'operator': '!=', 'x': 'u', 'y': '0'}])\
-            .row([1, "If", {'condition': '$', 'jump': 'endIf_0'}]) \
+            .row([1, "If", {'condition': '$0', 'jump': 'endIf_0'}]) \
             .row([2, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "0"}]) \
             .row([3, "Label", {'name': 'endIf_0'}]) \
             .row([4, "StopScene", {}]) \
@@ -167,10 +183,10 @@ class SpecLangWalkerTest(TestCase):
             .nl("\t\t\tj = 6")\
             .nl("\tu = 8")\
             .row([0, "Expression", {'operator': '!=', 'x': 'u', 'y': '0'}]) \
-            .row([1, "If", {'condition': '$', 'jump': 'endIf_0'}]) \
+            .row([1, "If", {'condition': '$0', 'jump': 'endIf_0'}]) \
             .row([2, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "0"}])\
             .row([3, "Expression", {'operator': '==', 'x': 'j', 'y': '5'}]) \
-            .row([4, "If", {'condition': '$', 'jump': 'endIf_3'}])\
+            .row([4, "If", {'condition': '$3', 'jump': 'endIf_3'}])\
             .row([5, "Assign", {'global': 'No', 'ID': 'j', 'type': 'Number', 'assignment': "6"}])\
             .row([6, "Label", {'name': 'endIf_3'}]) \
             .row([7, "Label", {'name': 'endIf_0'}]) \
@@ -193,7 +209,7 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl("\tchoice = [\"Choice1\"]") \
             .row([0, "Choice", {'choice0': "Choice1"}]) \
-            .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$"}]) \
+            .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$0"}]) \
             .row([2, "StopScene", {}]) \
             .check()
 
@@ -202,15 +218,23 @@ class SpecLangWalkerTest(TestCase):
             .of("scene \"TestScene\";") \
             .nl('\tchoice = ["Choice1", "Choice2"]') \
             .row([0, "Choice", {'choice0': "Choice1", 'choice1': "Choice2"}]) \
-            .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$"}]) \
+            .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$0"}]) \
             .row([2, "StopScene", {}]) \
             .check()
 
-    def test_simple_string_with_escape_quotes(self):
+    def test_simple_string_with_escape_quote(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\t' + r'x = "Te\"st"') \
+            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': r'\"Te\"st\"'}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_simple_string_surround_escape_quotes(self):
         RowBuilder \
             .of("scene \"TestScene\";") \
             .nl('\t' + r'x = "\"Test\""') \
-            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': '"Test"'}]) \
+            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': r'\"\"Test\"\"'}]) \
             .row([1, "StopScene", {}]) \
             .check()
 
@@ -218,6 +242,14 @@ class SpecLangWalkerTest(TestCase):
         RowBuilder \
             .of("scene \"TestScene\";") \
             .nl('\tx = "Test"') \
-            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': '""Test""'}]) \
+            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': r'\"Test\"'}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_simple_string_with_escape_backslash(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\tx = "\\\\Test"') \
+            .row([0, "Assign", {'global': 'No', 'ID': "x", 'type': "String", 'assignment': r'\"\\Test\"'}]) \
             .row([1, "StopScene", {}]) \
             .check()

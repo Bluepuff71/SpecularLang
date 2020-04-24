@@ -46,6 +46,17 @@ class SpecLangWalker(SpecLangVisitor):
         new_dict += ")"
         return new_dict
 
+    def convert_to_specular_string_format(self, str_to_convert: str):
+        # If the string we are converting doesn't have quotes then we can just return it
+        if str_to_convert[0] == '"' and str_to_convert[-1] == '"':
+            return r'\"{}\"'.format(str_to_convert[1:-1])
+        else:
+            return r'\"{}\"'.format(str_to_convert)
+
+    def append_to_formatted_string(self, formatted_str: str, append):
+        return self.convert_to_specular_string_format(formatted_str[2:-2] + append)
+
+
     def add_row(self, row: []):
         self.rows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
         self.allRows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
@@ -67,15 +78,20 @@ class SpecLangWalker(SpecLangVisitor):
     def visitTerm(self, ctx: SpecLangParser.TermContext):
         if ctx.NUMBER():
             type_str = 'Number'
+            value = ctx.getText().strip('"')
         elif ctx.TRUE() or ctx.FALSE():
             type_str = 'Bool'
+            value = ctx.getText().strip('"')
         elif ctx.STRING():
             type_str = 'String'
+            value = self.convert_to_specular_string_format(ctx.getText())
         elif ctx.ID():
             type_str = 'ID'
+            value = ctx.getText().strip('"')
         else:
             type_str = 'None'
-        return {'type': type_str, 'value': ctx.getText().strip('"')}
+            value = ctx.getText().strip('"')
+        return {'type': type_str, 'value': value}
 
     def visitAssignment(self, ctx:SpecLangParser.AssignmentContext):
         if ctx.GLOBAL():
@@ -109,7 +125,7 @@ class SpecLangWalker(SpecLangVisitor):
             return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
         else:  # Return + or - depending on the operator
             if typeStr == "String":
-                return {'type': 'String', 'value': term_0['value'] + term_1['value']}
+                return {'type': 'String', 'value': self.append_to_formatted_string(term_0['value'],term_1['value'])}
             else:
                 return {'type': 'Number', 'value': str(int(term_0['value']) + int(term_1['value'])) if expr_op == '+' else str(int(term_0['value']) - int(term_1['value']))}
 
@@ -161,7 +177,7 @@ class SpecLangWalker(SpecLangVisitor):
     def visitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
         self.visit(ctx.block())
         self.add_row([self.rowNum, "StopScene", {}])
-        self.write_rows(self.rows, str(ctx.STRING()).strip('"'))
+        self.write_rows(self.rows, str(ctx.STRING())[1:-1])
         self.rows = []
         self.rowNum = 0
 
