@@ -35,6 +35,15 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SpecLangParser#stage_direction.
+    def enterStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#stage_direction.
+    def exitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
+        pass
+
+
     # Enter a parse tree produced by SpecLangParser#assignment.
     def enterAssignment(self, ctx:SpecLangParser.AssignmentContext):
         pass

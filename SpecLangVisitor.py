@@ -24,6 +24,11 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SpecLangParser#stage_direction.
+    def visitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SpecLangParser#assignment.
     def visitAssignment(self, ctx:SpecLangParser.AssignmentContext):
         return self.visitChildren(ctx)

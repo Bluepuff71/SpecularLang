@@ -38,7 +38,7 @@ class SpecLangWalker(SpecLangVisitor):
         return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
 
     def visitDialog(self, ctx: SpecLangParser.DialogContext):
-        self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.getChild(1)), 'emotion': 'Neutral', 'text': str(ctx.getChild(3)).strip('"')}])
+        self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.getChild(1)), 'emotion': 'Neutral', 'text': str(ctx.getChild(3)).strip('"'), 'force_next': ''}])
 
     def visitTerm(self, ctx: SpecLangParser.TermContext):
         if ctx.NUMBER():
@@ -150,6 +150,27 @@ class SpecLangWalker(SpecLangVisitor):
     def visitIfstatement(self, ctx:SpecLangParser.IfstatementContext):
         current_row = self.rowNum
         term = self.visit(ctx.expression())
+        elseifs = ctx.else_if_statement()
+        else_state = ctx.else_statement()
+        if term['value'] == 'True':
+            self.visit(ctx.block())
+        elif term['value'] == 'False':
+            return
+        else:
+            if len(elseifs > 1):
+
+            self.add_row([self.rowNum, "If", {'condition': term['value'], 'jump': 'endIf_{}'.format(current_row)}])
+            self.visit(ctx.block())
+            for elseif in elseifs:
+                self.visit(elseif)
+            if else_state:
+                self.visit(else_state)
+            self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
+
+
+    def visitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
+        current_row = self.rowNum
+        term = self.visit(ctx.expression())
         if term['value'] == 'True':
             self.visit(ctx.block())
         elif term['value'] == 'False':
@@ -158,19 +179,6 @@ class SpecLangWalker(SpecLangVisitor):
             self.add_row([self.rowNum, "If", {'condition': term['value'], 'jump': 'endIf_{}'.format(current_row)}])
             self.visit(ctx.block())
             self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
-
-
-#    def visitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
-#        current_row = self.rowNum
-#        term = self.visit(ctx.expression())
-#        if term['value'] == 'True':
-#            self.visit(ctx.block())
-#        elif term['value'] == 'False':
-#            return
-#        else:
-#            self.add_row([self.rowNum, "If", {'condition': term['value'], 'jump': 'endIf_{}'.format(current_row)}])
-#            self.visit(ctx.block())
-#            self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
 
     def visitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
         current_row = self.rowNum

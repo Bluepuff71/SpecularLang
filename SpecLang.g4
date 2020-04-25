@@ -33,11 +33,16 @@ program : (assignment NEWLINE)* (scene_statement)+;
 block : (simple_statement NEWLINE | complex_statement) (block)? ;
 
 simple_statement : dialog
-                 | assignment;
+                 | assignment
+                 | '(' stage_direction ')';
+
+stage_direction : ENTER (ID | STRING)
+                | (ID | STRING) EXITS
+                | MOVE (ID | STRING) TO (ID | STRING);
 
 assignment: <assoc=right>  (GLOBAL)? ID '=' expression;
 
-dialog: '@' (ID | STRING) ':' STRING; //Needs to be updated with emotion support
+dialog: '@' (ID | STRING) ':' STRING NEXT?; //Needs to be updated with emotion support
 
 complex_statement : ifstatement
                   | whileLoop;
@@ -50,7 +55,6 @@ else_if_statement : ELIF  expression ';' INDENT block DEDENT;
 else_statement : ELSE ';' INDENT block DEDENT;
 
 whileLoop: WHILE expression ';' INDENT block DEDENT;
-
 
 scene_statement : SCENE STRING ';' INDENT block DEDENT ;
 
@@ -67,8 +71,12 @@ expression : (NOT | SUB) expression #unary
 /*
 * Lexer Rules
 */
+NEXT: '->';
 WHILE : 'while';
-
+ENTER: 'enter';
+EXITS: 'exits';
+MOVE: 'move';
+TO: 'to';
 DO : 'do';
 IF : 'if';
 ELIF: 'elif';
