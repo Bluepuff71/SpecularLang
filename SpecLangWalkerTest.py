@@ -275,3 +275,38 @@ class SpecLangWalkerTest(TestCase):
             .nl("\t\tu = 0") \
             .row([0, "StopScene", {}]) \
             .check()
+
+    def test_simple_if_else(self):
+        RowBuilder \
+            .of('scene "TestScene";')\
+            .nl('\tif u == 1;')\
+            .nl('\t\ty == 1')\
+            .nl('\telse;')\
+            .nl('\t\tw = 5') \
+            .row([0, "Expression", {'operator': '==', 'x': 'u', 'y': '1'}]) \
+            .row([1, "If", {'condition': '$0', 'jump': 'elseif_0'}]) \
+            .row([2, "Assign", {'global': 'No', 'ID': 'y', 'type': 'Number', 'assignment': "1"}]) \
+            .row([3, "JumpToLabel", {'name': 'endIf_0'}])\
+            .row([4, "Label", {'name': 'elseif_0'}]) \
+            .row([5, "Assign", {'global': 'No', 'ID': 'w', 'type': 'Number', 'assignment': "5"}]) \
+            .row([6, "Label", {'name': 'endIf_0'}]) \
+
+#    def test_simple_if_elif(self):
+#        RowBuilder \
+#            .of('scene "TestScene";') \
+#            .nl('\tif u == 1;') \
+#            .nl('\t\ty == 1') \
+#            .nl('\telif u == 2;') \
+#            .nl('\t\tw = 5') \
+#            .row([0, "Expression", {'operator': '==', 'x': 'u', 'y': '1'}]) \
+#           .row([1, "If", {'condition': '$0', 'jump': 'elseif_0'}]) \
+#           .row([2, "Assign", {'global': 'No', 'ID': 'y', 'type': 'Number', 'assignment': "1"}]) \
+#           .row([3, "JumpToLabel", {'name': 'endIf_0'}]) \
+#           .row([4, "Label", {'name': 'elseif_0'}]) \
+#           .row([0, "Expression", {'operator': '==', 'x': 'u', 'y': '2'}]) \
+#            .row([1, "If", {'condition': '$0', 'jump': 'elseif_0'}]) \
+#            .row([5, "Assign", {'global': 'No', 'ID': 'w', 'type': 'Number', 'assignment': "5"}]) \
+#            .row([6, "JumpToLabel", {'name': 'endIf_0'}]) \
+#            .row([7, "Label", {'name': 'elseif_0'}]) \
+#            .row([8, "Label", {'name': 'endIf_0'}]) \
+
