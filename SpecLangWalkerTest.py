@@ -20,7 +20,7 @@ class RowBuilder(TestCase):
         return rb
 
     def nl(self, text: str):
-        self.text += '\n{}'.format(text)
+        self.text += '\r\n{}'.format(text)
         return self
 
     def row(self, expected: []):

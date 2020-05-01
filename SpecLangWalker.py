@@ -168,7 +168,7 @@ class SpecLangWalker(SpecLangVisitor):
 #               elif_count += 1
 #               self.visit(elseif)
             if else_state:
-                self.add_row([self.rowNum, "Label", {'name': 'endElif_{}_{}'.format(current_row, elif_count)}])
+                #self.add_row([self.rowNum, "Label", {'name': 'endElif_{}_{}'.format(current_row, elif_count)}])
                 self.visit(else_state)
             self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
 

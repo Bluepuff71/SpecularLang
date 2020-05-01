@@ -12,67 +12,68 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3*")
-        buf.write("\u00a6\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u00a9\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\3\2\3\2\3\2\7\2 \n\2\f\2\16\2#\13\2\3\2\6\2&\n\2")
         buf.write("\r\2\16\2\'\3\3\3\3\3\3\3\3\5\3.\n\3\3\3\5\3\61\n\3\3")
-        buf.write("\4\3\4\3\4\5\4\66\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5")
-        buf.write("\5\5@\n\5\3\6\5\6C\n\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7")
-        buf.write("\3\7\5\7N\n\7\3\b\3\b\5\bR\n\b\3\t\3\t\3\t\3\t\3\t\3\t")
-        buf.write("\3\t\7\t[\n\t\f\t\16\t^\13\t\3\t\5\ta\n\t\3\n\3\n\3\n")
-        buf.write("\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\3\f\3\f")
-        buf.write("\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\16")
-        buf.write("\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\7\16")
-        buf.write("\u0089\n\16\f\16\16\16\u008c\13\16\3\16\3\16\5\16\u0090")
-        buf.write("\n\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16")
-        buf.write("\3\16\3\16\3\16\3\16\3\16\7\16\u00a1\n\16\f\16\16\16\u00a4")
-        buf.write("\13\16\3\16\4\\\u008a\3\32\17\2\4\6\b\n\f\16\20\22\24")
-        buf.write("\26\30\32\2\b\4\2!!%%\4\2\34\34  \3\2!&\3\2\35\36\3\2")
-        buf.write("\37 \3\2\7\b\2\u00ae\2!\3\2\2\2\4-\3\2\2\2\6\65\3\2\2")
-        buf.write("\2\b?\3\2\2\2\nB\3\2\2\2\fH\3\2\2\2\16Q\3\2\2\2\20S\3")
-        buf.write("\2\2\2\22b\3\2\2\2\24i\3\2\2\2\26o\3\2\2\2\30v\3\2\2\2")
-        buf.write("\32\u008f\3\2\2\2\34\35\5\n\6\2\35\36\7\'\2\2\36 \3\2")
-        buf.write("\2\2\37\34\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"")
-        buf.write("%\3\2\2\2#!\3\2\2\2$&\5\30\r\2%$\3\2\2\2&\'\3\2\2\2\'")
-        buf.write("%\3\2\2\2\'(\3\2\2\2(\3\3\2\2\2)*\5\6\4\2*+\7\'\2\2+.")
-        buf.write("\3\2\2\2,.\5\16\b\2-)\3\2\2\2-,\3\2\2\2.\60\3\2\2\2/\61")
-        buf.write("\5\4\3\2\60/\3\2\2\2\60\61\3\2\2\2\61\5\3\2\2\2\62\66")
-        buf.write("\5\f\7\2\63\66\5\n\6\2\64\66\5\b\5\2\65\62\3\2\2\2\65")
-        buf.write("\63\3\2\2\2\65\64\3\2\2\2\66\7\3\2\2\2\678\7\20\2\28@")
-        buf.write("\t\2\2\29:\t\2\2\2:@\7\21\2\2;<\7\22\2\2<=\t\2\2\2=>\7")
-        buf.write("\23\2\2>@\t\2\2\2?\67\3\2\2\2?9\3\2\2\2?;\3\2\2\2@\t\3")
-        buf.write("\2\2\2AC\7\31\2\2BA\3\2\2\2BC\3\2\2\2CD\3\2\2\2DE\7%\2")
-        buf.write("\2EF\7\3\2\2FG\5\32\16\2G\13\3\2\2\2HI\7\4\2\2IJ\t\2\2")
-        buf.write("\2JK\7\5\2\2KM\7!\2\2LN\7\16\2\2ML\3\2\2\2MN\3\2\2\2N")
-        buf.write("\r\3\2\2\2OR\5\20\t\2PR\5\26\f\2QO\3\2\2\2QP\3\2\2\2R")
-        buf.write("\17\3\2\2\2ST\7\25\2\2TU\5\32\16\2UV\7\6\2\2VW\7)\2\2")
-        buf.write("WX\5\4\3\2X\\\7*\2\2Y[\5\22\n\2ZY\3\2\2\2[^\3\2\2\2\\")
-        buf.write("]\3\2\2\2\\Z\3\2\2\2]`\3\2\2\2^\\\3\2\2\2_a\5\24\13\2")
-        buf.write("`_\3\2\2\2`a\3\2\2\2a\21\3\2\2\2bc\7\26\2\2cd\5\32\16")
-        buf.write("\2de\7\6\2\2ef\7)\2\2fg\5\4\3\2gh\7*\2\2h\23\3\2\2\2i")
-        buf.write("j\7\27\2\2jk\7\6\2\2kl\7)\2\2lm\5\4\3\2mn\7*\2\2n\25\3")
-        buf.write("\2\2\2op\7\17\2\2pq\5\32\16\2qr\7\6\2\2rs\7)\2\2st\5\4")
-        buf.write("\3\2tu\7*\2\2u\27\3\2\2\2vw\7\30\2\2wx\7!\2\2xy\7\6\2")
-        buf.write("\2yz\7)\2\2z{\5\4\3\2{|\7*\2\2|\31\3\2\2\2}~\b\16\1\2")
-        buf.write("~\177\t\3\2\2\177\u0090\5\32\16\13\u0080\u0081\7\t\2\2")
-        buf.write("\u0081\u0082\5\32\16\2\u0082\u0083\7\n\2\2\u0083\u0090")
-        buf.write("\3\2\2\2\u0084\u0085\7\13\2\2\u0085\u008a\7!\2\2\u0086")
-        buf.write("\u0087\7\f\2\2\u0087\u0089\7!\2\2\u0088\u0086\3\2\2\2")
-        buf.write("\u0089\u008c\3\2\2\2\u008a\u008b\3\2\2\2\u008a\u0088\3")
-        buf.write("\2\2\2\u008b\u008d\3\2\2\2\u008c\u008a\3\2\2\2\u008d\u0090")
-        buf.write("\7\r\2\2\u008e\u0090\t\4\2\2\u008f}\3\2\2\2\u008f\u0080")
-        buf.write("\3\2\2\2\u008f\u0084\3\2\2\2\u008f\u008e\3\2\2\2\u0090")
-        buf.write("\u00a2\3\2\2\2\u0091\u0092\f\n\2\2\u0092\u0093\t\5\2\2")
-        buf.write("\u0093\u00a1\5\32\16\13\u0094\u0095\f\t\2\2\u0095\u0096")
-        buf.write("\t\6\2\2\u0096\u00a1\5\32\16\n\u0097\u0098\f\b\2\2\u0098")
-        buf.write("\u0099\t\7\2\2\u0099\u00a1\5\32\16\t\u009a\u009b\f\7\2")
-        buf.write("\2\u009b\u009c\7\32\2\2\u009c\u00a1\5\32\16\b\u009d\u009e")
-        buf.write("\f\6\2\2\u009e\u009f\7\33\2\2\u009f\u00a1\5\32\16\7\u00a0")
-        buf.write("\u0091\3\2\2\2\u00a0\u0094\3\2\2\2\u00a0\u0097\3\2\2\2")
-        buf.write("\u00a0\u009a\3\2\2\2\u00a0\u009d\3\2\2\2\u00a1\u00a4\3")
-        buf.write("\2\2\2\u00a2\u00a0\3\2\2\2\u00a2\u00a3\3\2\2\2\u00a3\33")
-        buf.write("\3\2\2\2\u00a4\u00a2\3\2\2\2\21!\'-\60\65?BMQ\\`\u008a")
-        buf.write("\u008f\u00a0\u00a2")
+        buf.write("\4\3\4\3\4\3\4\3\4\3\4\5\49\n\4\3\5\3\5\3\5\3\5\3\5\3")
+        buf.write("\5\3\5\3\5\5\5C\n\5\3\6\5\6F\n\6\3\6\3\6\3\6\3\6\3\7\3")
+        buf.write("\7\3\7\3\7\3\7\5\7Q\n\7\3\b\3\b\5\bU\n\b\3\t\3\t\3\t\3")
+        buf.write("\t\3\t\3\t\3\t\7\t^\n\t\f\t\16\ta\13\t\3\t\5\td\n\t\3")
+        buf.write("\n\3\n\3\n\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3")
+        buf.write("\13\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3")
+        buf.write("\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3")
+        buf.write("\16\3\16\7\16\u008c\n\16\f\16\16\16\u008f\13\16\3\16\3")
+        buf.write("\16\5\16\u0093\n\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16")
+        buf.write("\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\7\16\u00a4\n")
+        buf.write("\16\f\16\16\16\u00a7\13\16\3\16\4_\u008d\3\32\17\2\4\6")
+        buf.write("\b\n\f\16\20\22\24\26\30\32\2\b\4\2!!%%\4\2\34\34  \3")
+        buf.write("\2!&\3\2\35\36\3\2\37 \3\2\t\n\2\u00b1\2!\3\2\2\2\4-\3")
+        buf.write("\2\2\2\68\3\2\2\2\bB\3\2\2\2\nE\3\2\2\2\fK\3\2\2\2\16")
+        buf.write("T\3\2\2\2\20V\3\2\2\2\22e\3\2\2\2\24l\3\2\2\2\26r\3\2")
+        buf.write("\2\2\30y\3\2\2\2\32\u0092\3\2\2\2\34\35\5\n\6\2\35\36")
+        buf.write("\7\'\2\2\36 \3\2\2\2\37\34\3\2\2\2 #\3\2\2\2!\37\3\2\2")
+        buf.write("\2!\"\3\2\2\2\"%\3\2\2\2#!\3\2\2\2$&\5\30\r\2%$\3\2\2")
+        buf.write("\2&\'\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2(\3\3\2\2\2)*\5\6\4")
+        buf.write("\2*+\7\'\2\2+.\3\2\2\2,.\5\16\b\2-)\3\2\2\2-,\3\2\2\2")
+        buf.write(".\60\3\2\2\2/\61\5\4\3\2\60/\3\2\2\2\60\61\3\2\2\2\61")
+        buf.write("\5\3\2\2\2\629\5\f\7\2\639\5\n\6\2\64\65\7\3\2\2\65\66")
+        buf.write("\5\b\5\2\66\67\7\4\2\2\679\3\2\2\28\62\3\2\2\28\63\3\2")
+        buf.write("\2\28\64\3\2\2\29\7\3\2\2\2:;\7\20\2\2;C\t\2\2\2<=\t\2")
+        buf.write("\2\2=C\7\21\2\2>?\7\22\2\2?@\t\2\2\2@A\7\23\2\2AC\t\2")
+        buf.write("\2\2B:\3\2\2\2B<\3\2\2\2B>\3\2\2\2C\t\3\2\2\2DF\7\31\2")
+        buf.write("\2ED\3\2\2\2EF\3\2\2\2FG\3\2\2\2GH\7%\2\2HI\7\5\2\2IJ")
+        buf.write("\5\32\16\2J\13\3\2\2\2KL\7\6\2\2LM\t\2\2\2MN\7\7\2\2N")
+        buf.write("P\7!\2\2OQ\7\16\2\2PO\3\2\2\2PQ\3\2\2\2Q\r\3\2\2\2RU\5")
+        buf.write("\20\t\2SU\5\26\f\2TR\3\2\2\2TS\3\2\2\2U\17\3\2\2\2VW\7")
+        buf.write("\25\2\2WX\5\32\16\2XY\7\b\2\2YZ\7)\2\2Z[\5\4\3\2[_\7*")
+        buf.write("\2\2\\^\5\22\n\2]\\\3\2\2\2^a\3\2\2\2_`\3\2\2\2_]\3\2")
+        buf.write("\2\2`c\3\2\2\2a_\3\2\2\2bd\5\24\13\2cb\3\2\2\2cd\3\2\2")
+        buf.write("\2d\21\3\2\2\2ef\7\26\2\2fg\5\32\16\2gh\7\b\2\2hi\7)\2")
+        buf.write("\2ij\5\4\3\2jk\7*\2\2k\23\3\2\2\2lm\7\27\2\2mn\7\b\2\2")
+        buf.write("no\7)\2\2op\5\4\3\2pq\7*\2\2q\25\3\2\2\2rs\7\17\2\2st")
+        buf.write("\5\32\16\2tu\7\b\2\2uv\7)\2\2vw\5\4\3\2wx\7*\2\2x\27\3")
+        buf.write("\2\2\2yz\7\30\2\2z{\7!\2\2{|\7\b\2\2|}\7)\2\2}~\5\4\3")
+        buf.write("\2~\177\7*\2\2\177\31\3\2\2\2\u0080\u0081\b\16\1\2\u0081")
+        buf.write("\u0082\t\3\2\2\u0082\u0093\5\32\16\13\u0083\u0084\7\3")
+        buf.write("\2\2\u0084\u0085\5\32\16\2\u0085\u0086\7\4\2\2\u0086\u0093")
+        buf.write("\3\2\2\2\u0087\u0088\7\13\2\2\u0088\u008d\7!\2\2\u0089")
+        buf.write("\u008a\7\f\2\2\u008a\u008c\7!\2\2\u008b\u0089\3\2\2\2")
+        buf.write("\u008c\u008f\3\2\2\2\u008d\u008e\3\2\2\2\u008d\u008b\3")
+        buf.write("\2\2\2\u008e\u0090\3\2\2\2\u008f\u008d\3\2\2\2\u0090\u0093")
+        buf.write("\7\r\2\2\u0091\u0093\t\4\2\2\u0092\u0080\3\2\2\2\u0092")
+        buf.write("\u0083\3\2\2\2\u0092\u0087\3\2\2\2\u0092\u0091\3\2\2\2")
+        buf.write("\u0093\u00a5\3\2\2\2\u0094\u0095\f\n\2\2\u0095\u0096\t")
+        buf.write("\5\2\2\u0096\u00a4\5\32\16\13\u0097\u0098\f\t\2\2\u0098")
+        buf.write("\u0099\t\6\2\2\u0099\u00a4\5\32\16\n\u009a\u009b\f\b\2")
+        buf.write("\2\u009b\u009c\t\7\2\2\u009c\u00a4\5\32\16\t\u009d\u009e")
+        buf.write("\f\7\2\2\u009e\u009f\7\32\2\2\u009f\u00a4\5\32\16\b\u00a0")
+        buf.write("\u00a1\f\6\2\2\u00a1\u00a2\7\33\2\2\u00a2\u00a4\5\32\16")
+        buf.write("\7\u00a3\u0094\3\2\2\2\u00a3\u0097\3\2\2\2\u00a3\u009a")
+        buf.write("\3\2\2\2\u00a3\u009d\3\2\2\2\u00a3\u00a0\3\2\2\2\u00a4")
+        buf.write("\u00a7\3\2\2\2\u00a5\u00a3\3\2\2\2\u00a5\u00a6\3\2\2\2")
+        buf.write("\u00a6\33\3\2\2\2\u00a7\u00a5\3\2\2\2\21!\'-\608BEPT_")
+        buf.write("c\u008d\u0092\u00a3\u00a5")
         return buf.getvalue()
 
 
@@ -86,8 +87,8 @@ class SpecLangParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'='", "'@'", "':'", "';'", "'=='", "'!='", 
-                     "'('", "')'", "'['", "','", "']'", "'->'", "'while'", 
+    literalNames = [ "<INVALID>", "'('", "')'", "'='", "'@'", "':'", "';'", 
+                     "'=='", "'!='", "'['", "','", "']'", "'->'", "'while'", 
                      "'enter'", "'exits'", "'move'", "'to'", "'do'", "'if'", 
                      "'elif'", "'else'", "'scene'", "'global'", "'and'", 
                      "'or'", "'not'", "'*'", "'/'", "'+'", "'-'", "<INVALID>", 
@@ -309,7 +310,7 @@ class SpecLangParser ( Parser ):
             self.state = 43
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [SpecLangParser.T__1, SpecLangParser.ENTER, SpecLangParser.MOVE, SpecLangParser.GLOBAL, SpecLangParser.STRING, SpecLangParser.ID]:
+            if token in [SpecLangParser.T__0, SpecLangParser.T__3, SpecLangParser.GLOBAL, SpecLangParser.ID]:
                 self.state = 39
                 self.simple_statement()
                 self.state = 40
@@ -325,7 +326,7 @@ class SpecLangParser ( Parser ):
             self.state = 46
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SpecLangParser.T__1) | (1 << SpecLangParser.WHILE) | (1 << SpecLangParser.ENTER) | (1 << SpecLangParser.MOVE) | (1 << SpecLangParser.IF) | (1 << SpecLangParser.GLOBAL) | (1 << SpecLangParser.STRING) | (1 << SpecLangParser.ID))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SpecLangParser.T__0) | (1 << SpecLangParser.T__3) | (1 << SpecLangParser.WHILE) | (1 << SpecLangParser.IF) | (1 << SpecLangParser.GLOBAL) | (1 << SpecLangParser.ID))) != 0):
                 self.state = 45
                 self.block()
 
@@ -382,27 +383,30 @@ class SpecLangParser ( Parser ):
         localctx = SpecLangParser.Simple_statementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_simple_statement)
         try:
-            self.state = 51
+            self.state = 54
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
-            if la_ == 1:
+            token = self._input.LA(1)
+            if token in [SpecLangParser.T__3]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 48
                 self.dialog()
                 pass
-
-            elif la_ == 2:
+            elif token in [SpecLangParser.GLOBAL, SpecLangParser.ID]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 49
                 self.assignment()
                 pass
-
-            elif la_ == 3:
+            elif token in [SpecLangParser.T__0]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 50
+                self.match(SpecLangParser.T__0)
+                self.state = 51
                 self.stage_direction()
+                self.state = 52
+                self.match(SpecLangParser.T__1)
                 pass
-
+            else:
+                raise NoViableAltException(self)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -469,14 +473,14 @@ class SpecLangParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_stage_direction)
         self._la = 0 # Token type
         try:
-            self.state = 61
+            self.state = 64
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [SpecLangParser.ENTER]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 53
+                self.state = 56
                 self.match(SpecLangParser.ENTER)
-                self.state = 54
+                self.state = 57
                 _la = self._input.LA(1)
                 if not(_la==SpecLangParser.STRING or _la==SpecLangParser.ID):
                     self._errHandler.recoverInline(self)
@@ -486,20 +490,6 @@ class SpecLangParser ( Parser ):
                 pass
             elif token in [SpecLangParser.STRING, SpecLangParser.ID]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 55
-                _la = self._input.LA(1)
-                if not(_la==SpecLangParser.STRING or _la==SpecLangParser.ID):
-                    self._errHandler.recoverInline(self)
-                else:
-                    self._errHandler.reportMatch(self)
-                    self.consume()
-                self.state = 56
-                self.match(SpecLangParser.EXITS)
-                pass
-            elif token in [SpecLangParser.MOVE]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 57
-                self.match(SpecLangParser.MOVE)
                 self.state = 58
                 _la = self._input.LA(1)
                 if not(_la==SpecLangParser.STRING or _la==SpecLangParser.ID):
@@ -508,8 +498,22 @@ class SpecLangParser ( Parser ):
                     self._errHandler.reportMatch(self)
                     self.consume()
                 self.state = 59
-                self.match(SpecLangParser.TO)
+                self.match(SpecLangParser.EXITS)
+                pass
+            elif token in [SpecLangParser.MOVE]:
+                self.enterOuterAlt(localctx, 3)
                 self.state = 60
+                self.match(SpecLangParser.MOVE)
+                self.state = 61
+                _la = self._input.LA(1)
+                if not(_la==SpecLangParser.STRING or _la==SpecLangParser.ID):
+                    self._errHandler.recoverInline(self)
+                else:
+                    self._errHandler.reportMatch(self)
+                    self.consume()
+                self.state = 62
+                self.match(SpecLangParser.TO)
+                self.state = 63
                 _la = self._input.LA(1)
                 if not(_la==SpecLangParser.STRING or _la==SpecLangParser.ID):
                     self._errHandler.recoverInline(self)
@@ -572,19 +576,19 @@ class SpecLangParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 64
+            self.state = 67
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==SpecLangParser.GLOBAL:
-                self.state = 63
+                self.state = 66
                 self.match(SpecLangParser.GLOBAL)
 
 
-            self.state = 66
+            self.state = 69
             self.match(SpecLangParser.ID)
-            self.state = 67
-            self.match(SpecLangParser.T__0)
-            self.state = 68
+            self.state = 70
+            self.match(SpecLangParser.T__2)
+            self.state = 71
             self.expression(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -640,24 +644,24 @@ class SpecLangParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 70
-            self.match(SpecLangParser.T__1)
-            self.state = 71
+            self.state = 73
+            self.match(SpecLangParser.T__3)
+            self.state = 74
             _la = self._input.LA(1)
             if not(_la==SpecLangParser.STRING or _la==SpecLangParser.ID):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 72
-            self.match(SpecLangParser.T__2)
-            self.state = 73
-            self.match(SpecLangParser.STRING)
             self.state = 75
+            self.match(SpecLangParser.T__4)
+            self.state = 76
+            self.match(SpecLangParser.STRING)
+            self.state = 78
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==SpecLangParser.NEXT:
-                self.state = 74
+                self.state = 77
                 self.match(SpecLangParser.NEXT)
 
 
@@ -709,17 +713,17 @@ class SpecLangParser ( Parser ):
         localctx = SpecLangParser.Complex_statementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_complex_statement)
         try:
-            self.state = 79
+            self.state = 82
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [SpecLangParser.IF]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 77
+                self.state = 80
                 self.ifstatement()
                 pass
             elif token in [SpecLangParser.WHILE]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 78
+                self.state = 81
                 self.whileLoop()
                 pass
             else:
@@ -795,34 +799,34 @@ class SpecLangParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 81
-            self.match(SpecLangParser.IF)
-            self.state = 82
-            self.expression(0)
-            self.state = 83
-            self.match(SpecLangParser.T__3)
             self.state = 84
-            self.match(SpecLangParser.INDENT)
+            self.match(SpecLangParser.IF)
             self.state = 85
-            self.block()
+            self.expression(0)
             self.state = 86
+            self.match(SpecLangParser.T__5)
+            self.state = 87
+            self.match(SpecLangParser.INDENT)
+            self.state = 88
+            self.block()
+            self.state = 89
             self.match(SpecLangParser.DEDENT)
-            self.state = 90
+            self.state = 93
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,9,self._ctx)
             while _alt!=1 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1+1:
-                    self.state = 87
+                    self.state = 90
                     self.else_if_statement() 
-                self.state = 92
+                self.state = 95
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,9,self._ctx)
 
-            self.state = 94
+            self.state = 97
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==SpecLangParser.ELSE:
-                self.state = 93
+                self.state = 96
                 self.else_statement()
 
 
@@ -884,17 +888,17 @@ class SpecLangParser ( Parser ):
         self.enterRule(localctx, 16, self.RULE_else_if_statement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 96
-            self.match(SpecLangParser.ELIF)
-            self.state = 97
-            self.expression(0)
-            self.state = 98
-            self.match(SpecLangParser.T__3)
             self.state = 99
-            self.match(SpecLangParser.INDENT)
+            self.match(SpecLangParser.ELIF)
             self.state = 100
-            self.block()
+            self.expression(0)
             self.state = 101
+            self.match(SpecLangParser.T__5)
+            self.state = 102
+            self.match(SpecLangParser.INDENT)
+            self.state = 103
+            self.block()
+            self.state = 104
             self.match(SpecLangParser.DEDENT)
         except RecognitionException as re:
             localctx.exception = re
@@ -950,15 +954,15 @@ class SpecLangParser ( Parser ):
         self.enterRule(localctx, 18, self.RULE_else_statement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 103
-            self.match(SpecLangParser.ELSE)
-            self.state = 104
-            self.match(SpecLangParser.T__3)
-            self.state = 105
-            self.match(SpecLangParser.INDENT)
             self.state = 106
-            self.block()
+            self.match(SpecLangParser.ELSE)
             self.state = 107
+            self.match(SpecLangParser.T__5)
+            self.state = 108
+            self.match(SpecLangParser.INDENT)
+            self.state = 109
+            self.block()
+            self.state = 110
             self.match(SpecLangParser.DEDENT)
         except RecognitionException as re:
             localctx.exception = re
@@ -1018,17 +1022,17 @@ class SpecLangParser ( Parser ):
         self.enterRule(localctx, 20, self.RULE_whileLoop)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 109
-            self.match(SpecLangParser.WHILE)
-            self.state = 110
-            self.expression(0)
-            self.state = 111
-            self.match(SpecLangParser.T__3)
             self.state = 112
-            self.match(SpecLangParser.INDENT)
+            self.match(SpecLangParser.WHILE)
             self.state = 113
-            self.block()
+            self.expression(0)
             self.state = 114
+            self.match(SpecLangParser.T__5)
+            self.state = 115
+            self.match(SpecLangParser.INDENT)
+            self.state = 116
+            self.block()
+            self.state = 117
             self.match(SpecLangParser.DEDENT)
         except RecognitionException as re:
             localctx.exception = re
@@ -1087,17 +1091,17 @@ class SpecLangParser ( Parser ):
         self.enterRule(localctx, 22, self.RULE_scene_statement)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 116
-            self.match(SpecLangParser.SCENE)
-            self.state = 117
-            self.match(SpecLangParser.STRING)
-            self.state = 118
-            self.match(SpecLangParser.T__3)
             self.state = 119
-            self.match(SpecLangParser.INDENT)
+            self.match(SpecLangParser.SCENE)
             self.state = 120
-            self.block()
+            self.match(SpecLangParser.STRING)
             self.state = 121
+            self.match(SpecLangParser.T__5)
+            self.state = 122
+            self.match(SpecLangParser.INDENT)
+            self.state = 123
+            self.block()
+            self.state = 124
             self.match(SpecLangParser.DEDENT)
         except RecognitionException as re:
             localctx.exception = re
@@ -1401,7 +1405,7 @@ class SpecLangParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 141
+            self.state = 144
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [SpecLangParser.NOT, SpecLangParser.SUB]:
@@ -1409,56 +1413,56 @@ class SpecLangParser ( Parser ):
                 self._ctx = localctx
                 _prevctx = localctx
 
-                self.state = 124
+                self.state = 127
                 _la = self._input.LA(1)
                 if not(_la==SpecLangParser.NOT or _la==SpecLangParser.SUB):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
-                self.state = 125
+                self.state = 128
                 self.expression(9)
                 pass
-            elif token in [SpecLangParser.T__6]:
+            elif token in [SpecLangParser.T__0]:
                 localctx = SpecLangParser.ParenContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 126
-                self.match(SpecLangParser.T__6)
-                self.state = 127
+                self.state = 129
+                self.match(SpecLangParser.T__0)
+                self.state = 130
                 self.expression(0)
-                self.state = 128
-                self.match(SpecLangParser.T__7)
+                self.state = 131
+                self.match(SpecLangParser.T__1)
                 pass
             elif token in [SpecLangParser.T__8]:
                 localctx = SpecLangParser.ChoiceContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 130
+                self.state = 133
                 self.match(SpecLangParser.T__8)
-                self.state = 131
+                self.state = 134
                 self.match(SpecLangParser.STRING)
-                self.state = 136
+                self.state = 139
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
                 while _alt!=1 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1+1:
-                        self.state = 132
+                        self.state = 135
                         self.match(SpecLangParser.T__9)
-                        self.state = 133
+                        self.state = 136
                         self.match(SpecLangParser.STRING) 
-                    self.state = 138
+                    self.state = 141
                     self._errHandler.sync(self)
                     _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
 
-                self.state = 139
+                self.state = 142
                 self.match(SpecLangParser.T__10)
                 pass
             elif token in [SpecLangParser.STRING, SpecLangParser.TRUE, SpecLangParser.FALSE, SpecLangParser.NONE, SpecLangParser.ID, SpecLangParser.NUMBER]:
                 localctx = SpecLangParser.TermContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 140
+                self.state = 143
                 _la = self._input.LA(1)
                 if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << SpecLangParser.STRING) | (1 << SpecLangParser.TRUE) | (1 << SpecLangParser.FALSE) | (1 << SpecLangParser.NONE) | (1 << SpecLangParser.ID) | (1 << SpecLangParser.NUMBER))) != 0)):
                     self._errHandler.recoverInline(self)
@@ -1470,7 +1474,7 @@ class SpecLangParser ( Parser ):
                 raise NoViableAltException(self)
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 160
+            self.state = 163
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -1478,91 +1482,91 @@ class SpecLangParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 158
+                    self.state = 161
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
                     if la_ == 1:
                         localctx = SpecLangParser.MultContext(self, SpecLangParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 143
+                        self.state = 146
                         if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
-                        self.state = 144
+                        self.state = 147
                         _la = self._input.LA(1)
                         if not(_la==SpecLangParser.MUL or _la==SpecLangParser.DIV):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 145
+                        self.state = 148
                         self.expression(9)
                         pass
 
                     elif la_ == 2:
                         localctx = SpecLangParser.AddContext(self, SpecLangParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 146
+                        self.state = 149
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
-                        self.state = 147
+                        self.state = 150
                         _la = self._input.LA(1)
                         if not(_la==SpecLangParser.ADD or _la==SpecLangParser.SUB):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 148
+                        self.state = 151
                         self.expression(8)
                         pass
 
                     elif la_ == 3:
                         localctx = SpecLangParser.EqualContext(self, SpecLangParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 149
+                        self.state = 152
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
-                        self.state = 150
+                        self.state = 153
                         _la = self._input.LA(1)
-                        if not(_la==SpecLangParser.T__4 or _la==SpecLangParser.T__5):
+                        if not(_la==SpecLangParser.T__6 or _la==SpecLangParser.T__7):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 151
+                        self.state = 154
                         self.expression(7)
                         pass
 
                     elif la_ == 4:
                         localctx = SpecLangParser.AndContext(self, SpecLangParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 152
+                        self.state = 155
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
-                        self.state = 153
+                        self.state = 156
                         self.match(SpecLangParser.AND)
-                        self.state = 154
+                        self.state = 157
                         self.expression(6)
                         pass
 
                     elif la_ == 5:
                         localctx = SpecLangParser.OrContext(self, SpecLangParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
-                        self.state = 155
+                        self.state = 158
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
-                        self.state = 156
+                        self.state = 159
                         self.match(SpecLangParser.OR)
-                        self.state = 157
+                        self.state = 160
                         self.expression(5)
                         pass
 
              
-                self.state = 162
+                self.state = 165
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
 
