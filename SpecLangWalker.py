@@ -9,6 +9,8 @@ class SpecLangWalker(SpecLangVisitor):
         self.rows = []
         self.allRows = []
         self.rowNum = 0
+        self.preSceneRows = []
+        self.is_prescene = True
 
     operators = {
         '==': ['ID', 'Number', 'String', 'Bool', 'None'],
@@ -64,7 +66,7 @@ class SpecLangWalker(SpecLangVisitor):
         else:
             is_global = 'No'
         expr = self.visit(ctx.expression())
-        self.add_row([self.rowNum, "Assign", {'global': is_global, 'ID': str(ctx.ID()), 'type': expr['type'], 'assignment': expr['value']}])
+        self.add_row([self.rowNum, "Assign", {'global': is_global, 'ID': str(ctx.ID()), 'type': expr['type'], 'assignment': expr['value']}], is_prescene=self.is_prescene)
 
     def visitMult(self, ctx:SpecLangParser.MultContext):
         term_0 = self.visit(ctx.expression(0))
@@ -140,11 +142,15 @@ class SpecLangWalker(SpecLangVisitor):
         return self.visit(ctx.expression())
 
     def visitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
+        self.is_prescene = False
+        self.rows = self.preSceneRows.copy()
+        self.rowNum = len(self.preSceneRows)
         self.visit(ctx.block())
         self.add_row([self.rowNum, "StopScene", {}])
         self.write_rows(self.rows, str(ctx.STRING())[1:-1])
         self.rows = []
         self.rowNum = 0
+        self.is_prescene = True
 
     def visitIfstatement(self, ctx:SpecLangParser.IfstatementContext):
         current_row = self.rowNum
@@ -250,9 +256,11 @@ class SpecLangWalker(SpecLangVisitor):
     def append_to_formatted_string(self, formatted_str: str, append):
         return self.convert_to_specular_string_format(formatted_str[2:-2] + append)
 
-
-    def add_row(self, row: []):
-        self.rows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
+    def add_row(self, row: [], is_prescene=False):
+        if is_prescene:
+            self.preSceneRows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
+        else:
+            self.rows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
         self.allRows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
         self.rowNum += 1
 
