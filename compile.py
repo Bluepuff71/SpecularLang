@@ -1,8 +1,6 @@
-import csv
 import sys
 
 from antlr4 import *
-from antlr4.tree.Trees import Trees
 
 from SpecLangLexer import SpecLangLexer
 from SpecLangParser import SpecLangParser
@@ -21,4 +19,3 @@ def main(argv):
 
 if __name__ == '__main__':
     main(sys.argv)
-

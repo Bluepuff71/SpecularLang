@@ -24,8 +24,33 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#stage_direction.
-    def visitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
+    # Visit a parse tree produced by SpecLangParser#enter.
+    def visitEnter(self, ctx:SpecLangParser.EnterContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#exit.
+    def visitExit(self, ctx:SpecLangParser.ExitContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#move.
+    def visitMove(self, ctx:SpecLangParser.MoveContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#fadeIn.
+    def visitFadeIn(self, ctx:SpecLangParser.FadeInContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#fadeOut.
+    def visitFadeOut(self, ctx:SpecLangParser.FadeOutContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#customDirection.
+    def visitCustomDirection(self, ctx:SpecLangParser.CustomDirectionContext):
         return self.visitChildren(ctx)
 
 
@@ -36,6 +61,11 @@ class SpecLangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#dialog.
     def visitDialog(self, ctx:SpecLangParser.DialogContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#emotion.
+    def visitEmotion(self, ctx:SpecLangParser.EmotionContext):
         return self.visitChildren(ctx)
 
 

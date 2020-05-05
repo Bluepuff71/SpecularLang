@@ -34,15 +34,20 @@ block : (simple_statement NEWLINE | complex_statement) (block)? ;
 
 simple_statement : dialog
                  | assignment
-                 | '(' stage_direction ')';
+                 | '[' stage_direction ']';
 
-stage_direction : ENTER (ID | STRING)
-                | (ID | STRING) EXITS
-                | MOVE (ID | STRING) TO (ID | STRING);
+stage_direction : ENTER (ID | STRING) #enter
+                | (ID | STRING) EXITS #exit
+                | MOVE (ID | STRING) TO (ID | STRING) #move
+                | FADEIN #fadeIn
+                | FADEOUT #fadeOut
+                | 'custom' ':' STRING #customDirection;
 
 assignment: <assoc=right>  (GLOBAL)? ID '=' expression;
 
-dialog: '@' (ID | STRING) ':' STRING NEXT?; //Needs to be updated with emotion support
+dialog: '@' (ID | STRING) (emotion)? ':' STRING NEXT?; //Needs to be updated with emotion support
+
+emotion: '(' STRING ')';
 
 complex_statement : ifstatement
                   | whileLoop;
@@ -94,6 +99,8 @@ STRING : '"' ( '\\"' | . )*? '"' ;
 TRUE: 'True';
 FALSE: 'False';
 NONE: 'None';
+FADEIN: 'fadein';
+FADEOUT: 'fadeout';
 //EMOTION : '(' [a-zA-Z] ')';
 ID : [a-zA-Z_][a-zA-Z_0-9]* ;
 NUMBER : [0-9]+ ;

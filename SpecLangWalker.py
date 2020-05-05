@@ -40,7 +40,16 @@ class SpecLangWalker(SpecLangVisitor):
         return {'type': 'ID', 'value': '${}'.format(self.rowNum - 1)}
 
     def visitDialog(self, ctx: SpecLangParser.DialogContext):
-        self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.getChild(1)), 'emotion': 'Neutral', 'text': str(ctx.getChild(3)).strip('"')}])
+        if ctx.emotion():
+            emotion = self.visit(ctx.emotion())
+            i = 4
+        else:
+            emotion = 'Neutral'
+            i = 3
+        self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.getChild(1)), 'emotion': emotion, 'text': str(ctx.getChild(i)).strip('"')}])
+
+    def visitEmotion(self, ctx: SpecLangParser.EmotionContext):
+        return ctx.getText().strip("(").strip(")").strip('"')
 
     def visitTerm(self, ctx: SpecLangParser.TermContext):
         if ctx.NUMBER():
@@ -217,6 +226,15 @@ class SpecLangWalker(SpecLangVisitor):
 #            self.add_row([self.rowNum, "Label", {'name': 'beginDoWhile_{}'.format(current_row)}])
 #            self.visit(ctx.block())
 #            self.add_row([self.rowNum, "While", {'condition': term['value'], 'jump': 'doWhile_{}'.format(current_row)}])
+
+    def visitCustomDirection(self, ctx:SpecLangParser.CustomDirectionContext):
+        self.add_row([self.rowNum, "Custom", {'name': str(ctx.STRING()).strip('"')}])
+
+    def visitFadeIn(self, ctx:SpecLangParser.FadeInContext):
+        self.add_row([self.rowNum, "FadeIn", {}])
+
+    def visitFadeOut(self, ctx:SpecLangParser.FadeOutContext):
+        self.add_row([self.rowNum, "FadeOut", {}])
 
 # region: Utils
     def to_bool(self, string: str):

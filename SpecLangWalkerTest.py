@@ -291,6 +291,38 @@ class SpecLangWalkerTest(TestCase):
             .row([5, "Assign", {'global': 'No', 'ID': 'w', 'type': 'Number', 'assignment': "5"}]) \
             .row([6, "Label", {'name': 'endIf_0'}]) \
 
+    def test_simple_dialog_with_emotion(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\t@ actor ("Thinking"): "Hello World"') \
+            .row([0, "Dialog", {'speaker': 'actor', 'emotion': 'Thinking', 'text': 'Hello World'}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_simple_custom_direction(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\t[custom: "Test"]') \
+            .row([0, "Custom", {'name': 'Test'}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_simple_fade_in(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\t[fadein]') \
+            .row([0, "FadeIn", {}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_simple_fade_out(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\t[fadeout]') \
+            .row([0, "FadeOut", {}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
 #    def test_simple_if_elif(self):
 #        RowBuilder \
 #            .of('scene "TestScene";') \

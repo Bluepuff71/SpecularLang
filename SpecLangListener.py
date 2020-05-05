@@ -35,12 +35,57 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#stage_direction.
-    def enterStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
+    # Enter a parse tree produced by SpecLangParser#enter.
+    def enterEnter(self, ctx:SpecLangParser.EnterContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#stage_direction.
-    def exitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
+    # Exit a parse tree produced by SpecLangParser#enter.
+    def exitEnter(self, ctx:SpecLangParser.EnterContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#exit.
+    def enterExit(self, ctx:SpecLangParser.ExitContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#exit.
+    def exitExit(self, ctx:SpecLangParser.ExitContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#move.
+    def enterMove(self, ctx:SpecLangParser.MoveContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#move.
+    def exitMove(self, ctx:SpecLangParser.MoveContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#fadeIn.
+    def enterFadeIn(self, ctx:SpecLangParser.FadeInContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#fadeIn.
+    def exitFadeIn(self, ctx:SpecLangParser.FadeInContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#fadeOut.
+    def enterFadeOut(self, ctx:SpecLangParser.FadeOutContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#fadeOut.
+    def exitFadeOut(self, ctx:SpecLangParser.FadeOutContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#customDirection.
+    def enterCustomDirection(self, ctx:SpecLangParser.CustomDirectionContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#customDirection.
+    def exitCustomDirection(self, ctx:SpecLangParser.CustomDirectionContext):
         pass
 
 
@@ -59,6 +104,15 @@ class SpecLangListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#dialog.
     def exitDialog(self, ctx:SpecLangParser.DialogContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#emotion.
+    def enterEmotion(self, ctx:SpecLangParser.EmotionContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#emotion.
+    def exitEmotion(self, ctx:SpecLangParser.EmotionContext):
         pass
 
 
