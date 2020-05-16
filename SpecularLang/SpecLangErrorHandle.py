@@ -3,7 +3,7 @@ from antlr4.error.ErrorListener import ErrorListener
 from antlr4.error.ErrorStrategy import DefaultErrorStrategy
 from antlr4.error.Errors import InputMismatchException
 
-from SpecLangLexer import SpecLangLexer
+from SpecularLang.SpecLangLexer import SpecLangLexer
 
 
 class SpecLangParserErrorStrategy(DefaultErrorStrategy):

@@ -1,16 +1,20 @@
 import csv
+import os.path
 
-from SpecLangParser import SpecLangParser
-from SpecLangVisitor import SpecLangVisitor
+from SpecularLang.SpecLangParser import SpecLangParser
+from SpecularLang.SpecLangVisitor import SpecLangVisitor
 
 
 class SpecLangWalker(SpecLangVisitor):
-    def __init__(self):
+    def __init__(self, save_dir='', scenes=None, talkative=1):
         self.rows = []
         self.allRows = []
         self.rowNum = 0
         self.preSceneRows = []
         self.is_prescene = True
+        self.save_dir = save_dir
+        self.scenes = scenes
+        self.talkative = talkative
 
     operators = {
         '==': ['ID', 'Number', 'String', 'Bool', 'None'],
@@ -151,15 +155,16 @@ class SpecLangWalker(SpecLangVisitor):
         return self.visit(ctx.expression())
 
     def visitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
-        self.is_prescene = False
-        self.rows = self.preSceneRows.copy()
-        self.rowNum = len(self.preSceneRows)
-        self.visit(ctx.block())
-        self.add_row([self.rowNum, "StopScene", {}])
-        self.write_rows(self.rows, str(ctx.STRING())[1:-1])
-        self.rows = []
-        self.rowNum = 0
-        self.is_prescene = True
+        if self.scenes is None or str(ctx.STRING())[1:-1] in self.scenes:
+            self.is_prescene = False
+            self.rows = self.preSceneRows.copy()
+            self.rowNum = len(self.preSceneRows)
+            self.visit(ctx.block())
+            self.add_row([self.rowNum, "StopScene", {}])
+            self.write_rows(self.rows, str(ctx.STRING())[1:-1])
+            self.rows = []
+            self.rowNum = 0
+            self.is_prescene = True
 
     def visitIfstatement(self, ctx:SpecLangParser.IfstatementContext):
         current_row = self.rowNum
@@ -245,14 +250,13 @@ class SpecLangWalker(SpecLangVisitor):
         else:
             raise ValueError('ToBool is None!')
 
-    def write_rows(self, rows: [], fileName: str):
-        assert len(fileName) > 0 and not (" " in fileName), "File name is invalid"
-        fileName += '.csv'
-        csv_file = open(fileName, 'w', newline='')
-        csv_writer = csv.writer(csv_file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True)
-        csv_writer.writerow(["---", "actionType", "params"])
-        csv_writer.writerows(rows)
-        csv_file.close()
+    def write_rows(self, rows: [], file_name: str):
+        with open(os.path.join(self.save_dir, (file_name + '.csv')), 'w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True)
+            csv_writer.writerow(["---", "actionType", "params"])
+            csv_writer.writerows(rows)
+            if self.talkative > 0:
+                print("Scene {} saved to file: {}".format(file_name, csv_file.name))
 
     @staticmethod
     def to_unreal_row_structure(di: {}):
