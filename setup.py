@@ -14,5 +14,6 @@ setuptools.setup(
         "console_scripts": [
             "slang = SpecularLang.compile",
         ]
-    }
+    },
+    python_requires='>=3.5'
 )
