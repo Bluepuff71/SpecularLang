@@ -126,3 +126,5 @@ dmypy.json
 test.txt
 *.csv
 *.txt
+
+.idea/
