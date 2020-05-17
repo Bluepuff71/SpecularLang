@@ -12,7 +12,7 @@ setuptools.setup(
     install_requires=['antlr4-python3-runtime', 'antlr_denter'],
     entry_points={
         "console_scripts": [
-            "slang = SpecularLang.compile",
+            "slang = SpecularLang.compile:main",
         ]
     },
     python_requires='>=3.5'
