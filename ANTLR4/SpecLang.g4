@@ -34,14 +34,9 @@ block : (simple_statement NEWLINE | complex_statement) (block)? ;
 
 simple_statement : dialog
                  | assignment
-                 | '[' stage_direction ']';
+                 | stage_direction;
 
-stage_direction : ENTER (ID | STRING) #enter
-                | (ID | STRING) EXITS #exit
-                | MOVE (ID | STRING) TO (ID | STRING) #move
-                | FADEIN #fadeIn
-                | FADEOUT #fadeOut
-                | 'custom' ':' STRING #customDirection;
+stage_direction : '[' STRING ']' ;
 
 assignment: <assoc=right>  (GLOBAL)? ID '=' expression;
 
@@ -70,7 +65,7 @@ expression : (NOT | SUB) expression #unary
            | expression AND expression #and
            | expression OR expression #or
            | '(' expression ')' #paren
-           | '[' STRING (',' STRING)*? ']' #choice
+           | '{' STRING (',' STRING)*? '}' #choice
            | (NONE | TRUE | FALSE | ID | STRING | NUMBER) #term;
 
 /*

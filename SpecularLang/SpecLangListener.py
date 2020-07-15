@@ -1,9 +1,9 @@
-# Generated from C:/Users/Emery/PycharmProjects/SpecularLang\SpecLang.g4 by ANTLR 4.8
+# Generated from C:/Users/Emery/PycharmProjects/SpecularLang/ANTLR4\SpecLang.g4 by ANTLR 4.8
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .SpecLangParser import SpecLangParser
 else:
-    from SpecularLang.SpecLangParser import SpecLangParser
+    from SpecLangParser import SpecLangParser
 
 # This class defines a complete listener for a parse tree produced by SpecLangParser.
 class SpecLangListener(ParseTreeListener):
@@ -35,57 +35,12 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#enter.
-    def enterEnter(self, ctx:SpecLangParser.EnterContext):
+    # Enter a parse tree produced by SpecLangParser#stage_direction.
+    def enterStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#enter.
-    def exitEnter(self, ctx:SpecLangParser.EnterContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#exit.
-    def enterExit(self, ctx:SpecLangParser.ExitContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#exit.
-    def exitExit(self, ctx:SpecLangParser.ExitContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#move.
-    def enterMove(self, ctx:SpecLangParser.MoveContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#move.
-    def exitMove(self, ctx:SpecLangParser.MoveContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#fadeIn.
-    def enterFadeIn(self, ctx:SpecLangParser.FadeInContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#fadeIn.
-    def exitFadeIn(self, ctx:SpecLangParser.FadeInContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#fadeOut.
-    def enterFadeOut(self, ctx:SpecLangParser.FadeOutContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#fadeOut.
-    def exitFadeOut(self, ctx:SpecLangParser.FadeOutContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#customDirection.
-    def enterCustomDirection(self, ctx:SpecLangParser.CustomDirectionContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#customDirection.
-    def exitCustomDirection(self, ctx:SpecLangParser.CustomDirectionContext):
+    # Exit a parse tree produced by SpecLangParser#stage_direction.
+    def exitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
         pass
 
 

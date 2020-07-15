@@ -6,6 +6,7 @@ from SpecularLang.SpecLangWalker import SpecLangWalker
 
 TestCase.maxDiff = None
 
+
 class RowBuilder(TestCase):
     def __init__(self):
         super().__init__()
@@ -207,7 +208,7 @@ class SpecLangWalkerTest(TestCase):
     def test_simple_single_choice_assignment(self):
         RowBuilder \
             .of("scene \"TestScene\";") \
-            .nl("\tchoice = [\"Choice1\"]") \
+            .nl("\tchoice = {\"Choice1\"}") \
             .row([0, "Choice", {'choice0': "Choice1"}]) \
             .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$0"}]) \
             .row([2, "StopScene", {}]) \
@@ -216,7 +217,7 @@ class SpecLangWalkerTest(TestCase):
     def test_simple_multi_choice_assignment(self):
         RowBuilder \
             .of("scene \"TestScene\";") \
-            .nl('\tchoice = ["Choice1", "Choice2"]') \
+            .nl('\tchoice = {"Choice1", "Choice2"}') \
             .row([0, "Choice", {'choice0': "Choice1", 'choice1': "Choice2"}]) \
             .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$0"}]) \
             .row([2, "StopScene", {}]) \
@@ -302,24 +303,8 @@ class SpecLangWalkerTest(TestCase):
     def test_simple_custom_direction(self):
         RowBuilder \
             .of("scene \"TestScene\";") \
-            .nl('\t[custom: "Test"]') \
-            .row([0, "Custom", {'name': 'Test'}]) \
-            .row([1, "StopScene", {}]) \
-            .check()
-
-    def test_simple_fade_in(self):
-        RowBuilder \
-            .of("scene \"TestScene\";") \
-            .nl('\t[fadein]') \
-            .row([0, "FadeIn", {}]) \
-            .row([1, "StopScene", {}]) \
-            .check()
-
-    def test_simple_fade_out(self):
-        RowBuilder \
-            .of("scene \"TestScene\";") \
-            .nl('\t[fadeout]') \
-            .row([0, "FadeOut", {}]) \
+            .nl('\t["Test"]') \
+            .row([0, "StageDir", {'name': 'Test'}]) \
             .row([1, "StopScene", {}]) \
             .check()
 

@@ -1,9 +1,9 @@
-# Generated from C:/Users/Emery/PycharmProjects/SpecularLang\SpecLang.g4 by ANTLR 4.8
+# Generated from C:/Users/Emery/PycharmProjects/SpecularLang/ANTLR4\SpecLang.g4 by ANTLR 4.8
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .SpecLangParser import SpecLangParser
 else:
-    from SpecularLang.SpecLangParser import SpecLangParser
+    from SpecLangParser import SpecLangParser
 
 # This class defines a complete generic visitor for a parse tree produced by SpecLangParser.
 
@@ -24,33 +24,8 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#enter.
-    def visitEnter(self, ctx:SpecLangParser.EnterContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#exit.
-    def visitExit(self, ctx:SpecLangParser.ExitContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#move.
-    def visitMove(self, ctx:SpecLangParser.MoveContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#fadeIn.
-    def visitFadeIn(self, ctx:SpecLangParser.FadeInContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#fadeOut.
-    def visitFadeOut(self, ctx:SpecLangParser.FadeOutContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#customDirection.
-    def visitCustomDirection(self, ctx:SpecLangParser.CustomDirectionContext):
+    # Visit a parse tree produced by SpecLangParser#stage_direction.
+    def visitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
         return self.visitChildren(ctx)
 
 
