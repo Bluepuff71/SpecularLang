@@ -1,9 +1,9 @@
 import csv
 import os.path
-from SpecularLang.SpecLangTypes import Term, Operation, Type, SpecHelper, Operator, UnaryOperation
+from SpecLangTypes import Term, Operation, Type, SpecHelper, Operator, UnaryOperation
 
-from SpecularLang.SpecLangParser import SpecLangParser
-from SpecularLang.SpecLangVisitor import SpecLangVisitor
+from SpecLangParser import SpecLangParser
+from SpecLangVisitor import SpecLangVisitor
 
 
 class SpecLangWalker(SpecLangVisitor):
@@ -16,8 +16,6 @@ class SpecLangWalker(SpecLangVisitor):
         self.save_dir = save_dir
         self.scenes = scenes
         self.talkative = talkative
-
-
 
     def visitChoice(self, ctx:SpecLangParser.ChoiceContext):
         choices = {}
@@ -165,7 +163,7 @@ class SpecLangWalker(SpecLangVisitor):
             self.remove_last_row()
             return
         else:
-            self.add_row([self.rowNum, "While", {'condition': term.value, 'jump': 'endWhile_{}'.format(current_row)}])
+            self.add_row([self.rowNum, "If", {'condition': term.value, 'jump': 'endWhile_{}'.format(current_row)}])
             self.visit(ctx.block())
             self.add_row([self.rowNum, "JumpToLabel", {'name': 'beginWhile_{}'.format(current_row)}])
             self.add_row([self.rowNum, "Label", {'name': 'endWhile_{}'.format(current_row)}])
@@ -185,7 +183,12 @@ class SpecLangWalker(SpecLangVisitor):
 #            self.add_row([self.rowNum, "While", {'condition': term['value'], 'jump': 'doWhile_{}'.format(current_row)}])
 
     def visitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
-        self.add_row([self.rowNum, "StageDir", {'name': str(ctx.STRING()).strip('"')}])
+        params = {}
+        i = 1
+        while ctx.STRING(i) is not None:
+            params["param{}".format(i)] = str(ctx.STRING(i)).strip('"')
+            i += 1
+        self.add_row([self.rowNum, str(ctx.STRING(0)).strip('"'), params])
 
 
 # region: Utils
@@ -200,7 +203,7 @@ class SpecLangWalker(SpecLangVisitor):
     def write_rows(self, rows: [], file_name: str):
         with open(os.path.join(self.save_dir, (file_name + '.csv')), 'w', newline='') as csv_file:
             csv_writer = csv.writer(csv_file, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True)
-            csv_writer.writerow(["---", "actionType", "params"])
+            csv_writer.writerow(["---", "ActionName", "Params"])
             csv_writer.writerows(rows)
             if self.talkative > 0:
                 print("Scene {} saved to file: {}".format(file_name, csv_file.name))

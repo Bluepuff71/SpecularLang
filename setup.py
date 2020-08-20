@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='SpecularLang',
-    version='1.0.4',
+    version='1.1.0',
     packages=setuptools.find_packages(),
     url='https://github.com/Bluepuff71/SpecularLang',
     license='MIT',

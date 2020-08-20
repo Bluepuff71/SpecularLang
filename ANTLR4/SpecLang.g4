@@ -36,7 +36,7 @@ simple_statement : dialog
                  | assignment
                  | stage_direction;
 
-stage_direction : '[' STRING ']' ;
+stage_direction : '[' STRING (',' STRING)*? ']' ; //TODO: Stage Direction parameters
 
 assignment: <assoc=right>  (GLOBAL)? ID '=' expression;
 

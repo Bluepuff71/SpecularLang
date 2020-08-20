@@ -304,7 +304,15 @@ class SpecLangWalkerTest(TestCase):
         RowBuilder \
             .of("scene \"TestScene\";") \
             .nl('\t["Test"]') \
-            .row([0, "StageDir", {'name': 'Test'}]) \
+            .row([0, "Test", {}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_complex_custom_direction(self):
+        RowBuilder \
+            .of("scene \"TestScene\";") \
+            .nl('\t["Test", "Test1", "Test2"]') \
+            .row([0, "Test", {"param1": "Test1", "param2": "Test2"}]) \
             .row([1, "StopScene", {}]) \
             .check()
 

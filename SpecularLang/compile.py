@@ -1,13 +1,11 @@
 import os.path
-import sys
 
 from antlr4 import *
 
-from SpecularLang.SpecLangLexer import SpecLangLexer
-from SpecularLang.SpecLangParser import SpecLangParser
-from SpecularLang.SpecLangWalker import SpecLangWalker
+from SpecLangLexer import SpecLangLexer
+from SpecLangParser import SpecLangParser
+from SpecLangWalker import SpecLangWalker
 import argparse
-
 
 def main():
     arg_parser = argparse.ArgumentParser()
