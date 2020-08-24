@@ -262,7 +262,7 @@ class SpecLangWalkerTest(TestCase):
             .nl("\t\tu = 0") \
             .row([0, "Label", {'name': 'beginWhile_0'}])\
             .row([1, "Expression", {'operator': '!=', 'x': 'u', 'y': '0'}]) \
-            .row([2, "While", {'condition': '$1', 'jump': 'endWhile_0'}]) \
+            .row([2, "If", {'condition': '$1', 'jump': 'endWhile_0'}]) \
             .row([3, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "0"}]) \
             .row([4, "JumpToLabel", {'name': 'beginWhile_0'}]) \
             .row([5, "Label", {'name': 'endWhile_0'}]) \
