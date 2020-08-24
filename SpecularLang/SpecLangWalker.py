@@ -1,9 +1,9 @@
 import csv
 import os.path
-from SpecLangTypes import Term, Operation, Type, SpecHelper, Operator, UnaryOperation
+from SpecularLang.SpecLangTypes import Term, Operation, Type, SpecHelper, Operator, UnaryOperation
 
-from SpecLangParser import SpecLangParser
-from SpecLangVisitor import SpecLangVisitor
+from SpecularLang.SpecLangParser import SpecLangParser
+from SpecularLang.SpecLangVisitor import SpecLangVisitor
 
 
 class SpecLangWalker(SpecLangVisitor):

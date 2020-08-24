@@ -6,7 +6,7 @@ import sys
 
 
 from antlr_denter.DenterHelper import DenterHelper
-from SpecLangParser import SpecLangParser
+from SpecularLang.SpecLangParser import SpecLangParser
 
 
 
