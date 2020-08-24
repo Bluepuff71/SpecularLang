@@ -2,9 +2,9 @@ import os.path
 
 from antlr4 import *
 
-from SpecLangLexer import SpecLangLexer
-from SpecLangParser import SpecLangParser
-from SpecLangWalker import SpecLangWalker
+from SpecularLang.SpecLangLexer import SpecLangLexer
+from SpecularLang.SpecLangParser import SpecLangParser
+from SpecularLang.SpecLangWalker import SpecLangWalker
 import argparse
 
 def main():
