@@ -1,8 +1,8 @@
 from unittest import TestCase
 from antlr4 import CommonTokenStream, InputStream
-from SpecLangLexer import SpecLangLexer
-from SpecLangParser import SpecLangParser
-from SpecLangWalker import SpecLangWalker
+from SpecularLang.SpecLangLexer import SpecLangLexer
+from SpecularLang.SpecLangParser import SpecLangParser
+from SpecularLang.SpecLangWalker import SpecLangWalker
 
 TestCase.maxDiff = None
 
