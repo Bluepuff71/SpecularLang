@@ -10,8 +10,8 @@ class Type(Enum):
 
 
 class Operator(Enum):
-    EQUALS = '=='
-    NOT_EQUALS = '!='
+    EQUALS = 'EQUALS'
+    NOT_EQUALS = 'NOT EQUALS'
     ADD = '+'
     SUBTRACT = '-'
     MULTIPLY = '*'

@@ -1,4 +1,4 @@
-# Generated from C:/Users/Emery/PycharmProjects/SpecularLang/ANTLR4\SpecLang.g4 by ANTLR 4.8
+# Generated from C:/Users/Emery/PycharmProjects/SpecularLang/SpecularLang\SpecLangParser.g4 by ANTLR 4.8
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .SpecLangParser import SpecLangParser
@@ -6,7 +6,7 @@ else:
     from SpecLangParser import SpecLangParser
 
 # This class defines a complete listener for a parse tree produced by SpecLangParser.
-class SpecLangListener(ParseTreeListener):
+class SpecLangParserListener(ParseTreeListener):
 
     # Enter a parse tree produced by SpecLangParser#program.
     def enterProgram(self, ctx:SpecLangParser.ProgramContext):
@@ -14,6 +14,15 @@ class SpecLangListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#program.
     def exitProgram(self, ctx:SpecLangParser.ProgramContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#scene_statement.
+    def enterScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#scene_statement.
+    def exitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
         pass
 
 
@@ -35,21 +44,12 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#stage_direction.
-    def enterStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
+    # Enter a parse tree produced by SpecLangParser#complex_statement.
+    def enterComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#stage_direction.
-    def exitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#assignment.
-    def enterAssignment(self, ctx:SpecLangParser.AssignmentContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#assignment.
-    def exitAssignment(self, ctx:SpecLangParser.AssignmentContext):
+    # Exit a parse tree produced by SpecLangParser#complex_statement.
+    def exitComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
         pass
 
 
@@ -71,12 +71,21 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#complex_statement.
-    def enterComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
+    # Enter a parse tree produced by SpecLangParser#custom_statement.
+    def enterCustom_statement(self, ctx:SpecLangParser.Custom_statementContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#complex_statement.
-    def exitComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
+    # Exit a parse tree produced by SpecLangParser#custom_statement.
+    def exitCustom_statement(self, ctx:SpecLangParser.Custom_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#assignment.
+    def enterAssignment(self, ctx:SpecLangParser.AssignmentContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#assignment.
+    def exitAssignment(self, ctx:SpecLangParser.AssignmentContext):
         pass
 
 
@@ -89,12 +98,12 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#else_if_statement.
-    def enterElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
+    # Enter a parse tree produced by SpecLangParser#whileLoop.
+    def enterWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
         pass
 
-    # Exit a parse tree produced by SpecLangParser#else_if_statement.
-    def exitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
+    # Exit a parse tree produced by SpecLangParser#whileLoop.
+    def exitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
         pass
 
 
@@ -107,39 +116,12 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SpecLangParser#whileLoop.
-    def enterWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#whileLoop.
-    def exitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#scene_statement.
-    def enterScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#scene_statement.
-    def exitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
-        pass
-
-
     # Enter a parse tree produced by SpecLangParser#add.
     def enterAdd(self, ctx:SpecLangParser.AddContext):
         pass
 
     # Exit a parse tree produced by SpecLangParser#add.
     def exitAdd(self, ctx:SpecLangParser.AddContext):
-        pass
-
-
-    # Enter a parse tree produced by SpecLangParser#equal.
-    def enterEqual(self, ctx:SpecLangParser.EqualContext):
-        pass
-
-    # Exit a parse tree produced by SpecLangParser#equal.
-    def exitEqual(self, ctx:SpecLangParser.EqualContext):
         pass
 
 
@@ -170,12 +152,39 @@ class SpecLangListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SpecLangParser#greater_than.
+    def enterGreater_than(self, ctx:SpecLangParser.Greater_thanContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#greater_than.
+    def exitGreater_than(self, ctx:SpecLangParser.Greater_thanContext):
+        pass
+
+
     # Enter a parse tree produced by SpecLangParser#and.
     def enterAnd(self, ctx:SpecLangParser.AndContext):
         pass
 
     # Exit a parse tree produced by SpecLangParser#and.
     def exitAnd(self, ctx:SpecLangParser.AndContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#equals.
+    def enterEquals(self, ctx:SpecLangParser.EqualsContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#equals.
+    def exitEquals(self, ctx:SpecLangParser.EqualsContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#less_than.
+    def enterLess_than(self, ctx:SpecLangParser.Less_thanContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#less_than.
+    def exitLess_than(self, ctx:SpecLangParser.Less_thanContext):
         pass
 
 
@@ -203,6 +212,15 @@ class SpecLangListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#choice.
     def exitChoice(self, ctx:SpecLangParser.ChoiceContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#or_equal_to_modifier.
+    def enterOr_equal_to_modifier(self, ctx:SpecLangParser.Or_equal_to_modifierContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#or_equal_to_modifier.
+    def exitOr_equal_to_modifier(self, ctx:SpecLangParser.Or_equal_to_modifierContext):
         pass
 
 

@@ -1,4 +1,4 @@
-# Generated from C:/Users/Emery/PycharmProjects/SpecularLang/ANTLR4\SpecLang.g4 by ANTLR 4.8
+# Generated from C:/Users/Emery/PycharmProjects/SpecularLang/SpecularLang\SpecLangParser.g4 by ANTLR 4.8
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .SpecLangParser import SpecLangParser
@@ -7,10 +7,15 @@ else:
 
 # This class defines a complete generic visitor for a parse tree produced by SpecLangParser.
 
-class SpecLangVisitor(ParseTreeVisitor):
+class SpecLangParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#program.
     def visitProgram(self, ctx:SpecLangParser.ProgramContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#scene_statement.
+    def visitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
         return self.visitChildren(ctx)
 
 
@@ -24,13 +29,8 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#stage_direction.
-    def visitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#assignment.
-    def visitAssignment(self, ctx:SpecLangParser.AssignmentContext):
+    # Visit a parse tree produced by SpecLangParser#complex_statement.
+    def visitComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
         return self.visitChildren(ctx)
 
 
@@ -44,8 +44,13 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#complex_statement.
-    def visitComplex_statement(self, ctx:SpecLangParser.Complex_statementContext):
+    # Visit a parse tree produced by SpecLangParser#custom_statement.
+    def visitCustom_statement(self, ctx:SpecLangParser.Custom_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#assignment.
+    def visitAssignment(self, ctx:SpecLangParser.AssignmentContext):
         return self.visitChildren(ctx)
 
 
@@ -54,8 +59,8 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#else_if_statement.
-    def visitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
+    # Visit a parse tree produced by SpecLangParser#whileLoop.
+    def visitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
         return self.visitChildren(ctx)
 
 
@@ -64,23 +69,8 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SpecLangParser#whileLoop.
-    def visitWhileLoop(self, ctx:SpecLangParser.WhileLoopContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#scene_statement.
-    def visitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by SpecLangParser#add.
     def visitAdd(self, ctx:SpecLangParser.AddContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SpecLangParser#equal.
-    def visitEqual(self, ctx:SpecLangParser.EqualContext):
         return self.visitChildren(ctx)
 
 
@@ -99,8 +89,23 @@ class SpecLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SpecLangParser#greater_than.
+    def visitGreater_than(self, ctx:SpecLangParser.Greater_thanContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SpecLangParser#and.
     def visitAnd(self, ctx:SpecLangParser.AndContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#equals.
+    def visitEquals(self, ctx:SpecLangParser.EqualsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#less_than.
+    def visitLess_than(self, ctx:SpecLangParser.Less_thanContext):
         return self.visitChildren(ctx)
 
 
@@ -116,6 +121,11 @@ class SpecLangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#choice.
     def visitChoice(self, ctx:SpecLangParser.ChoiceContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#or_equal_to_modifier.
+    def visitOr_equal_to_modifier(self, ctx:SpecLangParser.Or_equal_to_modifierContext):
         return self.visitChildren(ctx)
 
 

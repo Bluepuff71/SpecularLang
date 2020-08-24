@@ -3,10 +3,10 @@ import os.path
 from SpecLangTypes import Term, Operation, Type, SpecHelper, Operator, UnaryOperation
 
 from SpecLangParser import SpecLangParser
-from SpecLangVisitor import SpecLangVisitor
+from SpecLangParserVisitor import SpecLangParserVisitor
 
 
-class SpecLangWalker(SpecLangVisitor):
+class SpecLangWalker(SpecLangParserVisitor):
     def __init__(self, save_dir='', scenes=None, talkative=1):
         self.rows = []
         self.allRows = []
@@ -33,7 +33,7 @@ class SpecLangWalker(SpecLangVisitor):
         else:
             emotion = 'Neutral'
             i = 3
-        self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.getChild(1)), 'emotion': emotion, 'text': str(ctx.getChild(i)).strip('"')}])
+        self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.ACTOR_NAME()), 'emotion': emotion, 'text': str(ctx.ANYCHAR())}])
 
     def visitEmotion(self, ctx: SpecLangParser.EmotionContext):
         return ctx.getText().strip("(").strip(")").strip('"')
@@ -57,7 +57,7 @@ class SpecLangWalker(SpecLangVisitor):
         return Term(_type, value)
 
     def visitAssignment(self, ctx: SpecLangParser.AssignmentContext):
-        if ctx.GLOBAL():
+        if ctx.GLOBALLY():
             is_global = 'Yes'
         else:
             is_global = 'No'
@@ -89,8 +89,12 @@ class SpecLangWalker(SpecLangVisitor):
         else:
             return operation.perform()
 
-    def visitEqual(self, ctx: SpecLangParser.EqualContext):
-        return self.perform_expression(ctx.expression(0), ctx.expression(1), Operator(str(ctx.getChild(1))))
+    def visitEquals(self, ctx: SpecLangParser.EqualsContext):
+        if ctx.NOT():
+            operator = "NOT EQUALS"
+        else:
+            operator = "EQUALS"
+        return self.perform_expression(ctx.expression(0), ctx.expression(1), Operator(operator))
 
     def visitAnd(self, ctx: SpecLangParser.AndContext):
         return self.perform_expression(ctx.expression(0), ctx.expression(1), Operator(str(ctx.getChild(1))))
@@ -105,13 +109,13 @@ class SpecLangWalker(SpecLangVisitor):
         return self.visit(ctx.expression())
 
     def visitScene_statement(self, ctx:SpecLangParser.Scene_statementContext):
-        if self.scenes is None or str(ctx.STRING())[1:-1] in self.scenes:
+        if self.scenes is None or str(ctx.ID()) in self.scenes:
             self.is_prescene = False
             self.rows = self.preSceneRows.copy()
             self.rowNum = len(self.preSceneRows)
             self.visit(ctx.block())
             self.add_row([self.rowNum, "StopScene", {}])
-            self.write_rows(self.rows, str(ctx.STRING())[1:-1])
+            self.write_rows(self.rows, str(ctx.ID()))
             self.rows = []
             self.rowNum = 0
             self.is_prescene = True
@@ -119,26 +123,19 @@ class SpecLangWalker(SpecLangVisitor):
     def visitIfstatement(self, ctx: SpecLangParser.IfstatementContext):
         current_row = self.rowNum
         term = SpecHelper.to_term(self.visit(ctx.expression()))
-#        elseifs = ctx.else_if_statement()
-        elseifs = []
         else_state = ctx.else_statement()
-        elses_exist = elseifs != [] or else_state is not None
+        elses_exist = else_state is not None
         if str(term.value) == 'True':
             self.visit(ctx.block())
         elif str(term.value) == 'False' and not elses_exist:
             return
         else:
-            elif_count = 0
             self.add_row([self.rowNum, "If", {'condition': term.value, 'jump': 'endIf_{}'.format(current_row) if not elses_exist else 'elseif_{}'.format(current_row)}])
             self.visit(ctx.block())
             if elses_exist:
                 self.add_row([self.rowNum, "JumpToLabel", {'name': 'endIf_{}'.format(current_row)}])
                 self.add_row([self.rowNum, "Label", {'name': 'elseif_{}'.format(current_row)}])
-#           for elseif in elseifs:
-#               elif_count += 1
-#               self.visit(elseif)
             if else_state:
-                #self.add_row([self.rowNum, "Label", {'name': 'endElif_{}_{}'.format(current_row, elif_count)}])
                 self.visit(else_state)
             self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
 
@@ -182,7 +179,7 @@ class SpecLangWalker(SpecLangVisitor):
 #            self.visit(ctx.block())
 #            self.add_row([self.rowNum, "While", {'condition': term['value'], 'jump': 'doWhile_{}'.format(current_row)}])
 
-    def visitStage_direction(self, ctx:SpecLangParser.Stage_directionContext):
+    def visitCustom_statement(self, ctx:SpecLangParser.Custom_statementContext):
         params = {}
         i = 1
         while ctx.STRING(i) is not None:

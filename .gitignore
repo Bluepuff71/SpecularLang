@@ -128,3 +128,4 @@ test.txt
 *.txt
 
 .idea/
+.idea
