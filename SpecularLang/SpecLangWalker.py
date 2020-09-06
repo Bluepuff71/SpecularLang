@@ -1,13 +1,18 @@
 import csv
 import os.path
+from enum import Enum
 from SpecLangTypes import Term, Operation, Type, SpecHelper, Operator, UnaryOperation
 
 from SpecLangParser import SpecLangParser
 from SpecLangParserVisitor import SpecLangParserVisitor
 
+class RowFormat(Enum):
+    DEFAULT = 'default'
+    UE4 = 'ue4'
+
 
 class SpecLangWalker(SpecLangParserVisitor):
-    def __init__(self, save_dir='', scenes=None, talkative=1):
+    def __init__(self, save_dir='', scenes=None, talkative=1, data_format='default'):
         self.rows = []
         self.allRows = []
         self.rowNum = 0
@@ -16,24 +21,28 @@ class SpecLangWalker(SpecLangParserVisitor):
         self.save_dir = save_dir
         self.scenes = scenes
         self.talkative = talkative
+        self.format = RowFormat(data_format)
 
     def visitChoice(self, ctx:SpecLangParser.ChoiceContext):
+        choice_list = self.visit(ctx.param_list())
         choices = {}
         i = 0
-        while ctx.STRING(i) is not None:
-            choices["choice{}".format(i)] = str(ctx.STRING(i)).strip('"')
+        while i < len(choice_list):
+            choices["choice{}".format(i)] = str(choice_list[i]).strip('"')
             i += 1
         self.add_row([self.rowNum, "Choice", choices])
         return Term(Type.ID, '${}'.format(self.rowNum - 1))
 
     def visitDialog(self, ctx: SpecLangParser.DialogContext):
-        if ctx.emotion():
+        if ctx.emotion() is not None:
             emotion = self.visit(ctx.emotion())
-            i = 4
         else:
             emotion = 'Neutral'
-            i = 3
-        self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.ACTOR_NAME()), 'emotion': emotion, 'text': str(ctx.ANYCHAR())}])
+        dialog_text = str(self.visit(ctx.dialog_block())).strip('"')
+        self.add_row([self.rowNum, "Dialog", {'speaker': str(ctx.ACTOR_NAME()), 'emotion': emotion, 'text': dialog_text}])
+
+    def visitDialog_block(self, ctx:SpecLangParser.Dialog_blockContext):
+        return ctx.getText()
 
     def visitEmotion(self, ctx: SpecLangParser.EmotionContext):
         return ctx.getText().strip("(").strip(")").strip('"')
@@ -180,15 +189,51 @@ class SpecLangWalker(SpecLangParserVisitor):
 #            self.add_row([self.rowNum, "While", {'condition': term['value'], 'jump': 'doWhile_{}'.format(current_row)}])
 
     def visitCustom_statement(self, ctx:SpecLangParser.Custom_statementContext):
-        params = {}
-        i = 1
-        while ctx.STRING(i) is not None:
-            params["param{}".format(i)] = str(ctx.STRING(i)).strip('"')
-            i += 1
-        self.add_row([self.rowNum, str(ctx.STRING(0)).strip('"'), params])
+        param_names = []
+        param_data = []
+        if ctx.custom_param_name_list() is not None:
+            param_names = self.visit(ctx.custom_param_name_list())
+        if ctx.custom_params_list() is not None:
+            param_data = self.visit(ctx.custom_params_list())
+        params = self.map_custom_statement_params(param_names, param_data)
+        self.add_row([self.rowNum, str(ctx.CA_CLEAN_WORD()).strip('"'), params])
 
+    def visitCustom_params_list(self, ctx:SpecLangParser.Custom_params_listContext):
+        if ctx.STRING() is not None:
+            return [str(ctx.STRING()).strip('"')]
+        else:
+            return self.visit(ctx.param_list())
+
+    def visitParam_list(self, ctx:SpecLangParser.Param_listContext):
+        params = []
+        i = 0
+        while ctx.STRING(i) is not None:
+            params.append(str(ctx.STRING(i)).strip('"'))
+            i += 1
+        return params
+
+    def visitCustom_param_name_list(self, ctx:SpecLangParser.Custom_param_name_listContext):
+        param_names = []
+        i = 0
+        while ctx.CA_CLEAN_WORD(i) is not None:
+            param_names.append(str(ctx.CA_CLEAN_WORD(i)))
+            i += 1
+        return param_names
 
 # region: Utils
+    def map_custom_statement_params(self, param_names, param_values) -> dict:
+        params = {}
+        i = 0
+        while i < len(param_values) is not None:
+            params[self.get_param_name_or_default(param_names, i)] = param_values[i]
+            i += 1
+        return params
+
+    def get_param_name_or_default(self, param_names: list, index: int):
+        if len(param_names) > index:
+            return param_names[index]
+        return "param{}".format(index)
+
     def to_bool(self, string: str):
         if string.lower() == 'true':
             return True
@@ -207,7 +252,6 @@ class SpecLangWalker(SpecLangParserVisitor):
 
     @staticmethod
     def to_unreal_row_structure(di: {}):
-        #(actor=None,characterName={},dialogueColor=(B=0,G=0,R=0,A=255))
         new_dict = "("
         for x, y in di.items():
             new_dict += '("{}","{}"),'.format(x, y)
@@ -226,11 +270,15 @@ class SpecLangWalker(SpecLangParserVisitor):
         return self.convert_to_specular_string_format(formatted_str[2:-2] + append)
 
     def add_row(self, row: [], is_prescene=False):
+        params = row[2]
+        if self.format == RowFormat.UE4:
+            params = self.to_unreal_row_structure(row[2])
+
         if is_prescene:
-            self.preSceneRows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
+            self.preSceneRows.append([row[0], row[1], params])
         else:
-            self.rows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
-        self.allRows.append([row[0], row[1], self.to_unreal_row_structure(row[2])])
+            self.rows.append([row[0], row[1], params])
+        self.allRows.append([row[0], row[1], params])
         self.rowNum += 1
 
     def remove_last_row(self):

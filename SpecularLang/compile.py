@@ -13,6 +13,7 @@ def main():
     arg_parser.add_argument('-t', '--talkative', type=int, choices=[0, 1], default=1, help='How talkative should Slang be while compiling (0 = Quiet/Errors Only, 1 = Outputs)')
     arg_parser.add_argument('-s', '--scenes', nargs='+', help='The specific scenes to compile')
     arg_parser.add_argument('-o', '--output', type=str, default=os.getcwd(), help='The directory to place the compiled files')
+    arg_parser.add_argument('-f', '--format', type=str, choices=['default', 'ue4'], default='default', help='The compilation format')
     args = arg_parser.parse_args()
     if not os.path.isfile(os.path.normpath(args.file_to_compile)):
         print("The file you specified doesn't exist.")
@@ -30,7 +31,7 @@ def main():
             print("Output must be a directory")
             return
         else:
-            visitor = SpecLangWalker(os.path.normpath(args.output), args.scenes)
+            visitor = SpecLangWalker(os.path.normpath(args.output), args.scenes, args.talkative, str(args.format).lower())
         visitor.visit(tree)
 
 

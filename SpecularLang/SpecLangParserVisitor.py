@@ -39,6 +39,11 @@ class SpecLangParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SpecLangParser#dialog_block.
+    def visitDialog_block(self, ctx:SpecLangParser.Dialog_blockContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SpecLangParser#emotion.
     def visitEmotion(self, ctx:SpecLangParser.EmotionContext):
         return self.visitChildren(ctx)
@@ -46,6 +51,16 @@ class SpecLangParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#custom_statement.
     def visitCustom_statement(self, ctx:SpecLangParser.Custom_statementContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#custom_param_name_list.
+    def visitCustom_param_name_list(self, ctx:SpecLangParser.Custom_param_name_listContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#custom_params_list.
+    def visitCustom_params_list(self, ctx:SpecLangParser.Custom_params_listContext):
         return self.visitChildren(ctx)
 
 
@@ -121,6 +136,11 @@ class SpecLangParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SpecLangParser#choice.
     def visitChoice(self, ctx:SpecLangParser.ChoiceContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SpecLangParser#param_list.
+    def visitParam_list(self, ctx:SpecLangParser.Param_listContext):
         return self.visitChildren(ctx)
 
 

@@ -34,7 +34,7 @@ class RowBuilder(TestCase):
         stream = CommonTokenStream(lexer)
         parser = SpecLangParser(stream)
         tree = parser.program()
-        visitor = SpecLangWalker()
+        visitor = SpecLangWalker(data_format='ue4')
         visitor.visit(tree)
         self.assertListEqual(self.expected, visitor.allRows)
 
@@ -84,10 +84,32 @@ class SpecLangWalkerTest(TestCase):
     def test_simple_dialog(self):
         RowBuilder \
             .of("Start TestScene") \
-            .nl("\tACTOR (TestEmotion)")\
+            .nl("\tACTOR")\
             .nl("\t\tHello World")\
-            .row([0, "Dialog", {'speaker': 'ACTOR', 'emotion': 'TestEmotion', 'text': 'Hello World'}]) \
+            .row([0, "Dialog", {'speaker': 'ACTOR', 'emotion': 'Neutral', 'text': 'Hello World'}]) \
             .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_complex_dialog(self):
+        RowBuilder \
+            .of('Start TestScene') \
+            .nl('\tACTOR (TestEmotion)') \
+            .nl('\t\t"Hello World') \
+            .nl('\t\tLook at how cool this is!"') \
+            .row([0, "Dialog", {'speaker': 'ACTOR', 'emotion': 'TestEmotion', 'text': 'Hello World\r\n\t\tLook at how cool this is!'}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_dialog_with_other_statements(self):
+        RowBuilder \
+            .of("Start TestScene") \
+            .nl("\tACTOR (TestEmotion)") \
+            .nl("\t\tHello World") \
+            .nl("\tSet x equal to 1") \
+            .row([0, "Dialog", {'speaker': 'ACTOR', 'emotion': 'TestEmotion',
+                                'text': 'Hello World'}]) \
+            .row([1, "Assign", {'global': 'No', 'ID': 'x', 'type': 'Number', 'assignment': "1"}]) \
+            .row([2, "StopScene", {}]) \
             .check()
 
     def test_simple_neg_assignent(self):
@@ -196,20 +218,10 @@ class SpecLangWalkerTest(TestCase):
             .row([9, "StopScene", {}]) \
             .check()
 
-    def test_assignment_before_scene(self):# TODO: REMOVE
-        RowBuilder \
-            .of("Set i equal to 0")\
-            .nl("scene \"TestScene\";") \
-            .nl("\tu = 1") \
-            .row([0, "Assign", {'global': 'No', 'ID': 'i', 'type': 'Number', 'assignment': "0"}]) \
-            .row([1, "Assign", {'global': 'No', 'ID': 'u', 'type': 'Number', 'assignment': "1"}]) \
-            .row([2, "StopScene", {}]) \
-            .check()
-
     def test_simple_single_choice_assignment(self):
         RowBuilder \
-            .of("scene \"TestScene\";") \
-            .nl("\tchoice = {\"Choice1\"}") \
+            .of("Start TestScene") \
+            .nl('\tSet choice equal to ["Choice1"]') \
             .row([0, "Choice", {'choice0': "Choice1"}]) \
             .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$0"}]) \
             .row([2, "StopScene", {}]) \
@@ -217,8 +229,20 @@ class SpecLangWalkerTest(TestCase):
 
     def test_simple_multi_choice_assignment(self):
         RowBuilder \
-            .of("scene \"TestScene\";") \
-            .nl('\tchoice = {"Choice1", "Choice2"}') \
+            .of("Start TestScene") \
+            .nl('\tSet choice equal to ["Choice1", "Choice2"]') \
+            .row([0, "Choice", {'choice0': "Choice1", 'choice1': "Choice2"}]) \
+            .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$0"}]) \
+            .row([2, "StopScene", {}]) \
+            .check()
+
+    def test_simple_multiline_choice_assignment(self):
+        RowBuilder \
+            .of("Start TestScene") \
+            .nl('\tSet choice equal to [') \
+            .nl('\t"Choice1",') \
+            .nl('\t"Choice2"') \
+            .nl('\t]') \
             .row([0, "Choice", {'choice0': "Choice1", 'choice1': "Choice2"}]) \
             .row([1, "Assign", {'global': 'No', 'ID': 'choice', 'type': 'ID', 'assignment': "$0"}]) \
             .row([2, "StopScene", {}]) \
@@ -273,7 +297,7 @@ class SpecLangWalkerTest(TestCase):
     def test_simple_while_false_reduction(self):
         RowBuilder \
             .of("Start TestScene") \
-            .nl("\tWhile False;") \
+            .nl("\tWhile False") \
             .nl("\t\tSet u equal to 0") \
             .row([0, "StopScene", {}]) \
             .check()
@@ -295,25 +319,37 @@ class SpecLangWalkerTest(TestCase):
 
     def test_simple_dialog_with_emotion(self):
         RowBuilder \
-            .of("scene \"TestScene\";") \
-            .nl('\t@ actor ("Thinking"): "Hello World"') \
-            .row([0, "Dialog", {'speaker': 'actor', 'emotion': 'Thinking', 'text': 'Hello World'}]) \
+            .of("Start TestScene") \
+            .nl('\tACTOR (Thinking)') \
+            .nl('\t\tHello World') \
+            .row([0, "Dialog", {'speaker': 'ACTOR', 'emotion': 'Thinking', 'text': 'Hello World'}]) \
             .row([1, "StopScene", {}]) \
             .check()
 
     def test_simple_custom_direction(self):
         RowBuilder \
-            .of("scene \"TestScene\";") \
-            .nl('\t["Test"]') \
+            .of("Start TestScene") \
+            .nl('\tDo Test') \
             .row([0, "Test", {}]) \
             .row([1, "StopScene", {}]) \
             .check()
 
     def test_complex_custom_direction(self):
         RowBuilder \
-            .of("scene \"TestScene\";") \
-            .nl('\t["Test", "Test1", "Test2"]') \
-            .row([0, "Test", {"param1": "Test1", "param2": "Test2"}]) \
+            .of("Start TestScene") \
+            .nl('\tDo Test') \
+            .nl('\t\t["TestParam1",') \
+            .nl('\t\t"TestParam2"]') \
+            .row([0, "Test", {"param0": "TestParam1", "param1": "TestParam2"}]) \
+            .row([1, "StopScene", {}]) \
+            .check()
+
+    def test_simple_custom_direction_with_custom_names(self):
+        RowBuilder \
+            .of("Start TestScene") \
+            .nl('\tDo Test: TestParamName1') \
+            .nl('\t\t"TestParam"') \
+            .row([0, "Test", {'TestParamName1': 'TestParam'}]) \
             .row([1, "StopScene", {}]) \
             .check()
 

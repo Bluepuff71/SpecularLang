@@ -12,20 +12,26 @@ scene_statement : START ID INDENT block DEDENT;
 
 block :  (simple_statement NEWLINE | complex_statement) (block)?;
 
-simple_statement : dialog
-                 | assignment
-                 | custom_statement;
+simple_statement : assignment;
 
 
-complex_statement : ifstatement
-                  | whileLoop;
+complex_statement : dialog
+                  | ifstatement
+                  | whileLoop
+                  | custom_statement;
 
 
-dialog : ACTOR_NAME emotion INDENT ANYCHAR DEDENT;
+dialog : ACTOR_NAME emotion? INDENT dialog_block NEWLINE DEDENT;
+
+dialog_block : (ANYCHAR | STRING);
 
 emotion : EMOTION_START EMOTION EMOTION_END;
 
-custom_statement : DO_Upper STRING (INDENT STRING (NEWLINE STRING)* DEDENT)?;
+custom_statement : DO_Upper CA_CLEAN_WORD (custom_param_name_list? custom_params_list? | NEWLINE);
+
+custom_param_name_list : COLON CA_CLEAN_WORD (SEPARATOR CA_CLEAN_WORD)*;
+
+custom_params_list : INDENT ( STRING | param_list ) NEWLINE DEDENT;
 
 assignment: <assoc=right>  SET ID EQUAL_TO expression (GLOBALLY)?;
 
@@ -43,9 +49,11 @@ expression : (NOT | SUB) expression #unary
            | expression IS LESS_THAN (or_equal_to_modifier)? expression #less_than
            | expression AND expression #and
            | expression OR expression #or
-           | OPEN_PARAN expression CLOSE_PARAN #paren
-           | LEFT_BRACKET STRING (COMMA STRING)*? RIGHT_BRACKET #choice
+           | OPEN expression CLOSE #paren
+           | param_list #choice
            | (NONE | TRUE | FALSE | ID | STRING | NUMBER) #term;
+
+param_list : PL_START STRING (SEPARATOR STRING)*? PL_END;
 
 or_equal_to_modifier : OR EQUAL_TO;
 

@@ -62,6 +62,15 @@ class SpecLangParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SpecLangParser#dialog_block.
+    def enterDialog_block(self, ctx:SpecLangParser.Dialog_blockContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#dialog_block.
+    def exitDialog_block(self, ctx:SpecLangParser.Dialog_blockContext):
+        pass
+
+
     # Enter a parse tree produced by SpecLangParser#emotion.
     def enterEmotion(self, ctx:SpecLangParser.EmotionContext):
         pass
@@ -77,6 +86,24 @@ class SpecLangParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#custom_statement.
     def exitCustom_statement(self, ctx:SpecLangParser.Custom_statementContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#custom_param_name_list.
+    def enterCustom_param_name_list(self, ctx:SpecLangParser.Custom_param_name_listContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#custom_param_name_list.
+    def exitCustom_param_name_list(self, ctx:SpecLangParser.Custom_param_name_listContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#custom_params_list.
+    def enterCustom_params_list(self, ctx:SpecLangParser.Custom_params_listContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#custom_params_list.
+    def exitCustom_params_list(self, ctx:SpecLangParser.Custom_params_listContext):
         pass
 
 
@@ -212,6 +239,15 @@ class SpecLangParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by SpecLangParser#choice.
     def exitChoice(self, ctx:SpecLangParser.ChoiceContext):
+        pass
+
+
+    # Enter a parse tree produced by SpecLangParser#param_list.
+    def enterParam_list(self, ctx:SpecLangParser.Param_listContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#param_list.
+    def exitParam_list(self, ctx:SpecLangParser.Param_listContext):
         pass
 
 
