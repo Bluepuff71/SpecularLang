@@ -12,13 +12,16 @@ scene_statement : START ID INDENT block DEDENT;
 
 block :  (simple_statement NEWLINE | complex_statement) (block)?;
 
-simple_statement : assignment;
+simple_statement : assignment
+                 | play_scene;
 
 
 complex_statement : dialog
                   | ifstatement
                   | whileLoop
                   | custom_statement;
+
+play_scene : PLAY ID;
 
 
 dialog : ACTOR_NAME emotion? INDENT dialog_block NEWLINE DEDENT;

@@ -37,6 +37,7 @@ fragment FR_STRING : '"' ( '\\"' | . )*? '"';
 fragment FR_COMMA : ',';
 fragment WHITESPACE : [ ]+?;
 
+PLAY : 'Play' -> pushMode(CODE_MODE);
 START : 'Start' -> pushMode(CODE_MODE);
 SET : 'Set' -> pushMode(CODE_MODE);
 IF : 'If' -> pushMode(CODE_MODE);

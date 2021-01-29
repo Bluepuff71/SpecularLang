@@ -34,6 +34,11 @@ class SpecLangParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by SpecLangParser#play_scene.
+    def visitPlay_scene(self, ctx:SpecLangParser.Play_sceneContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by SpecLangParser#dialog.
     def visitDialog(self, ctx:SpecLangParser.DialogContext):
         return self.visitChildren(ctx)

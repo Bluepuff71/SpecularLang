@@ -6,6 +6,7 @@ from SpecLangTypes import Term, Operation, Type, SpecHelper, Operator, UnaryOper
 from SpecLangParser import SpecLangParser
 from SpecLangParserVisitor import SpecLangParserVisitor
 
+
 class RowFormat(Enum):
     DEFAULT = 'default'
     UE4 = 'ue4'
@@ -148,14 +149,6 @@ class SpecLangWalker(SpecLangParserVisitor):
                 self.visit(else_state)
             self.add_row([self.rowNum, "Label", {'name': 'endIf_{}'.format(current_row)}])
 
-#    def visitElse_if_statement(self, ctx:SpecLangParser.Else_if_statementContext):
-#        current_row = self.rowNum
-#       term = self.visit(ctx.expression())
-#      self.add_row([self.rowNum, "If", {'condition': term['value'], 'jump': 'endElif_{}'.format(current_row)}])
-#       self.visit(ctx.block())
-#       self.add_row([self.rowNum, "JumpToLabel", {'name': 'endIf_{}'.format(current_row)}])
-#       self.add_row([self.rowNum, "Label", {'name': 'endElif_{}'.format(current_row)}])
-
     def visitElse_statement(self, ctx:SpecLangParser.Else_statementContext):
         self.visit(ctx.block())
 
@@ -173,20 +166,6 @@ class SpecLangWalker(SpecLangParserVisitor):
             self.visit(ctx.block())
             self.add_row([self.rowNum, "JumpToLabel", {'name': 'beginWhile_{}'.format(current_row)}])
             self.add_row([self.rowNum, "Label", {'name': 'endWhile_{}'.format(current_row)}])
-
-
-# Canned for now
-#    def visitDoWhileLoop(self, ctx:SpecLangParser.DoWhileLoopContext):
-#        current_row = self.rowNum
-#        term = self.visit(ctx.expression())
-#        if term['value'] == 'True':
-#            raise Exception("Do-While loop around line: {} will run forever (which is not allowed)".format(current_row))
-#        elif term['value'] == 'False':
-#            return
-#        else:
-#            self.add_row([self.rowNum, "Label", {'name': 'beginDoWhile_{}'.format(current_row)}])
-#            self.visit(ctx.block())
-#            self.add_row([self.rowNum, "While", {'condition': term['value'], 'jump': 'doWhile_{}'.format(current_row)}])
 
     def visitCustom_statement(self, ctx:SpecLangParser.Custom_statementContext):
         param_names = []

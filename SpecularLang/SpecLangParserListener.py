@@ -53,6 +53,15 @@ class SpecLangParserListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SpecLangParser#play_scene.
+    def enterPlay_scene(self, ctx:SpecLangParser.Play_sceneContext):
+        pass
+
+    # Exit a parse tree produced by SpecLangParser#play_scene.
+    def exitPlay_scene(self, ctx:SpecLangParser.Play_sceneContext):
+        pass
+
+
     # Enter a parse tree produced by SpecLangParser#dialog.
     def enterDialog(self, ctx:SpecLangParser.DialogContext):
         pass
